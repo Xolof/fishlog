@@ -13,17 +13,12 @@ const main = async function() {
     };
 
     const nav = document.getElementsByClassName("main_nav")[0];
-    nav.innerHTML = `<a id="nav_search">Search fishes</a>
+    nav.innerHTML = `
     <a id="nav_add">Add catch</a>
     <a id="nav_show">Show catches</a>
     <a id="nav_login">${ state.getLoggedIn() ? "Logout" : "Login" }</a>`;
 
-    search.init();
-
-    helpers.addListener("click", helpers.getId("nav_search"), (e) => {
-        helpers.resetContent();
-        search.init();
-    });
+    add.init();
 
     helpers.addListener("click", helpers.getId("nav_add"), (e) => {
         helpers.resetContent();
