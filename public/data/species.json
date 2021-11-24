@@ -1,0 +1,18 @@
+{
+    "cod": {
+        "swedish_name": "torsk",
+        "image": "atlantic-cod-NOAA.png"
+    },
+    "whiting": {
+        "swedish_name": "vitling",
+        "image": "Wijting002.jpg"
+    },
+    "makrell": {
+        "swedish_name": "makrill",
+        "image": "atlantic_mackerel_2.jpg"
+    },
+    "angler": {
+        "swedish_name": "marulk",
+        "image": "Seeteufel.jpg"
+    }
+}
