@@ -1,4 +1,5 @@
 import { helpers } from "./helpers.js";
+import { state } from "./state.js";
 
 export const add = function() {
     let coordinates = false;
@@ -35,7 +36,24 @@ export const add = function() {
     }
 
     function init() {
-        helpers.getId("content").innerHTML = `
+        const content = helpers.getId("content");
+
+        if (!state.getLoggedIn()) {
+            content.innerHTML = `
+                <div class="content_inner">
+                    <div class="img_wrapper">
+                        <img src="./images/atlantic_mackerel_2.jpg" >
+                    </div>
+                    <div class="info">
+                        <p>You have to log in to be able to add a catch.</p>
+                        <p>Sign in or create an account.</p>
+                    </div>
+                </div>
+                `;
+            return;
+        };
+
+        content.innerHTML = `
         <form action="" id="add-form">
             <input type="text" id="add_input_species" placeholder="Species" class="input">
             <input type="number" id="add_input_length" placeholder="Length (cm)" class="input">
