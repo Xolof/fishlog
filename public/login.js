@@ -4,11 +4,13 @@ import { state } from './state.js';
 export const login = function() {
     function init() {
         helpers.getId("content").innerHTML = `
-        <form action="" id="add-form">
-            <input type="text" id="email" placeholder="Email" class="input">
-            <input type="password" id="password" placeholder="Password" class="input">
-            <button id="login" class="button">Log in</button>
-        </form>
+        <div class="content_inner">
+            <form action="" id="add-form">
+                <input type="text" id="email" placeholder="Email" class="input">
+                <input type="password" id="password" placeholder="Password" class="input">
+                <button id="login" class="button">Log in</button>
+            </form>
+        </div>
         `;
 
         helpers.addListener("click", helpers.getId("login"), (e) => {
@@ -47,8 +49,9 @@ export const login = function() {
             state.setLoggedIn(false);
             const loginButton = helpers.getId("nav_login");
             loginButton.textContent = "Login";
+            return;
         } else {
-            helpers.showFlashMessage("Login failed.", "error");
+            helpers.showFlashMessage("Logout failed.", "error");
         }
     }
 
