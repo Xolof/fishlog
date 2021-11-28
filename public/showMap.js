@@ -1,8 +1,5 @@
 import { helpers } from "./helpers.js";
 
-const addListener = helpers.addListener;
-const getId = helpers.getId;
-
 export const showMap = function() {
 
     let data = {};
@@ -15,13 +12,13 @@ export const showMap = function() {
     
     async function init () {
         data = await getData();
-
         render();
     }
 
     function showMap () {
         let mapDiv = document.createElement("div");
         mapDiv.setAttribute("id", "map");
+        mapDiv.setAttribute("class", "full_height");
         helpers.getId("content").appendChild(mapDiv);
 
         var map = L.map('map').setView([56.04, 12.65], 10);
@@ -30,18 +27,19 @@ export const showMap = function() {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        const layerGroup = L.layerGroup().addTo(map);
-
-        map.addEventListener("click", (e) => {
-            coordinates = e.latlng.lat + "," + e.latlng.lng;
-            const lat = e.latlng.lat;
-            const lng = e.latlng.lng
-            const locationButton = helpers.getId("add_button_location");
-            locationButton.textContent = `${lat} ${lng}`;
-
-            layerGroup.clearLayers();
-
-            L.marker([lat, lng]).addTo(layerGroup);
+        data.forEach(c => {
+            const lat = c.location.split(",")[0];
+            const lon = c.location.split(",")[1];
+            const popupContent =`
+                <section>
+                    <h2>${c.species}</h2>
+                    <p>${c.date}</p>
+                    <p>${c.length} cm</p>
+                    <p>${c.weight} g</p>
+                    <p>Caught by ${c.username}</p>
+                </section>
+            `;
+            L.marker([lat, lon]).addTo(map).bindPopup(popupContent);
         })
     }
 

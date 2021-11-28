@@ -211,5 +211,7 @@ img,
 
   .main .results_image {
     width: 100%; } }
+#map.full_height {
+  height: 700px; }
 
 /*# sourceMappingURL=styles.css.map */
