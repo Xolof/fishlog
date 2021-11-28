@@ -1,9 +1,9 @@
 "use strict";
 
 import { helpers } from "./helpers.js";
-import { search } from "./search.js";
 import { add } from "./add.js";
 import { show } from "./show.js";
+import { showMap } from "./showMap.js";
 import { login } from "./login.js";
 import { state } from './state.js';
 
@@ -15,7 +15,8 @@ const main = async function() {
     const nav = document.getElementsByClassName("main_nav")[0];
     nav.innerHTML = `
     <a id="nav_add">Add catch</a>
-    <a id="nav_show">Show catches</a>
+    <a id="nav_show">Show list</a>
+    <a id="nav_showMap">Show map</a>
     <a id="nav_login">${ state.getLoggedIn() ? "Logout" : "Login" }</a>`;
 
     add.init();
@@ -30,13 +31,18 @@ const main = async function() {
         show.init();
     });
 
-    helpers.addListener("click", helpers.getId("nav_login"), (e) => {
+    helpers.addListener("click", helpers.getId("nav_showMap"), (e) => {
+        helpers.resetContent();
+        showMap.init();
+    });
+
+    helpers.addListener("click", helpers.getId("nav_login"), async (e) => {
         helpers.resetContent();
         if (!state.getLoggedIn()) {
             login.init();
         } else {
-            login.logout();
-            search.init();
+            await login.logout();
+            add.init();
         }
     });
 }();
