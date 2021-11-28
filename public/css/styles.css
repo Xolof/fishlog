@@ -213,5 +213,8 @@ img,
     width: 100%; } }
 #map.full_height {
   height: 700px; }
+  #map.full_height img {
+    width: 150px;
+    height: auto; }
 
 /*# sourceMappingURL=styles.css.map */

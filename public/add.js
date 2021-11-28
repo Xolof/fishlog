@@ -60,6 +60,7 @@ export const add = function() {
             <input type="number" id="add_input_weight" placeholder="Weight (g)" class="input">
             <input type="date" id="add_input_date" class="input">
             <button id="add_button_location" class="input">Add location</button>
+            <input type="file" id="uploadImage">
             <button id="add_catch" class="button">Save</button>
         </form>
         `;
@@ -83,6 +84,7 @@ export const add = function() {
             const length = helpers.getId("add_input_length").value;
             const weight = helpers.getId("add_input_weight").value;
             const date = helpers.getId("add_input_date").value;
+            const uploadImage = helpers.getId("uploadImage").files[0];
 
             if (
                 species != ""
@@ -96,7 +98,8 @@ export const add = function() {
                     "length": length,
                     "weight": weight,
                     "date": date,
-                    "location": coordinates
+                    "location": coordinates,
+                    "uploadImage": uploadImage
                 });
             } else {
                 helpers.showFlashMessage("Fill out all fields!", "error");
@@ -105,16 +108,22 @@ export const add = function() {
     }
 
     async function postData (data) {
+        let formData = new FormData();
+        for (const key in data) {
+            formData.append(key, data[key])
+        }
+
         const res = await fetch("http://localhost:8000/api/create", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
                 "Authorization": "Bearer " + localStorage.getItem("token")
             },
-            body: JSON.stringify(data)
+            body: formData
         });
         
         const json = await res.json();
+
+        console.log(json)
 
         if (json.success) {
             helpers.showFlashMessage("Catch added!", "success");

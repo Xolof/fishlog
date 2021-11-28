@@ -265,4 +265,9 @@ img,
 
 #map.full_height {
     height: 700px;
+
+    img {
+        width: 150px;
+        height: auto;
+    }
 }

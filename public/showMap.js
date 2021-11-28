@@ -1,4 +1,5 @@
 import { helpers } from "./helpers.js";
+const API_URL = "http://localhost:8000";
 
 export const showMap = function() {
 
@@ -33,6 +34,10 @@ export const showMap = function() {
             const popupContent =`
                 <section>
                     <h2>${c.species}</h2>
+                    <img
+                        src="${API_URL}${c.imageurl}"
+                        alt="catch_${c.imageurl}"
+                    />
                     <p>${c.date}</p>
                     <p>${c.length} cm</p>
                     <p>${c.weight} g</p>
