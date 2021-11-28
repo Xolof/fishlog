@@ -24,7 +24,9 @@ body {
     width: 100%;
     padding-bottom: 1em;
     overflow-x: hidden;
+    overflow-y: scroll;
     position: relative;
+    display: flex;
 }
 
 .input {
@@ -56,7 +58,9 @@ body {
 .main {
     position: relative;
     z-index: 1000;
-    max-width: 900px;
+    width: 900px;
+    height: fit-content;
+    min-height: 90%;
     margin: 1.6rem auto;
     padding: 0.8rem 0.4rem 0.4rem;
     background-color: #262626;
@@ -139,6 +143,25 @@ img,
             }
         }
         width: 100%;
+        margin: 0 auto;
+    }
+
+    .img_wrapper {
+        height: 250px;
+        display: block;
+        margin: 0 auto;
+        width: 50%;
+        img {
+            height: 100%;
+            width: auto;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+
+    .info {
+        padding-top: 1em;
+        text-align: center;
     }
 }
 
@@ -239,3 +262,4 @@ img,
         }
     }
 }
+
