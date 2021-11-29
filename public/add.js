@@ -92,6 +92,7 @@ export const add = function() {
                 && weight != ""
                 && date != ""
                 && coordinates
+                && uploadImage
             ) {
                 postData ({
                     "species": species,
@@ -123,12 +124,12 @@ export const add = function() {
         
         const json = await res.json();
 
-        console.log(json)
-
         if (json.success) {
             helpers.showFlashMessage("Catch added!", "success");
+        } else if (json.error) {
+            helpers.showFlashMessage(json.error, "error");
         } else {
-            helpers.showFlashMessage("Authentication failed!", "error");
+            helpers.showFlashMessage("The request failed.", "error");
         }
     }
 
