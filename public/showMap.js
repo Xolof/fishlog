@@ -4,6 +4,9 @@ const API_URL = "http://localhost:8000";
 export const showMap = function() {
 
     let data = {};
+    const content = helpers.getId("content");
+    let map;
+    const markers = new L.FeatureGroup();
 
     async function getData () {
         let res = await fetch("http://localhost:8000/api/public_fishcatch");
@@ -16,19 +19,52 @@ export const showMap = function() {
         render();
     }
 
+    function showFilters () {
+        const section = document.createElement("section");
+        content.appendChild(section);
+        const textInput = document.createElement("input");
+        textInput.setAttribute("type", "text");
+        textInput.setAttribute("placeholder", "species");
+        section.appendChild(textInput);
+        helpers.addListener("keyup", textInput, (e) => {
+            filter(e.target.value);
+        });
+    }
+
+    function filter (string) {
+        if (string === "") {
+            clearMarkers();
+            addMarkers(data);
+            return;
+        }
+        const filteredData = data.filter(item => item.species.includes(string));
+        clearMarkers();
+        addMarkers(filteredData);
+    }
+
     function showMap () {
         let mapDiv = document.createElement("div");
         mapDiv.setAttribute("id", "map");
         mapDiv.setAttribute("class", "full_height");
-        helpers.getId("content").appendChild(mapDiv);
+        content.appendChild(mapDiv);
 
-        var map = L.map('map').setView([56.04, 12.65], 10);
+        map = L.map('map').setView([56.04, 12.65], 10);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        data.forEach(c => {
+        markers.addTo(map);
+
+        addMarkers(data);
+    }
+
+    function clearMarkers () {
+        markers.clearLayers();
+    }
+
+    function addMarkers (newData) {
+        newData.forEach(c => {
             const lat = c.location.split(",")[0];
             const lon = c.location.split(",")[1];
             const popupContent =`
@@ -44,12 +80,14 @@ export const showMap = function() {
                     <p>Caught by ${c.username}</p>
                 </section>
             `;
-            L.marker([lat, lon]).addTo(map).bindPopup(popupContent);
-        })
+            const marker = L.marker([lat, lon]).bindPopup(popupContent);
+            markers.addLayer(marker);
+        });
     }
 
     function render() {
-        showMap();
+        showFilters();
+        showMap(data);
     }
 
     return {
