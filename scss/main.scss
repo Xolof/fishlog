@@ -111,6 +111,7 @@ img,
 }
 
 #map {
+    margin-top: 1em;
     height: 400px;
 }
 
@@ -202,6 +203,26 @@ img,
 .error {
     background-color: #ff1f1f;
     color: #000;
+}
+
+.irs--round {
+    width: 95%;
+    display: block;
+    margin: 0.5em auto 0.25em;
+}
+
+.irs-max,
+.irs-min,
+.irs-from,
+.irs-to {
+    display: none;
+}
+
+.filters {
+    label {
+        font-size: 0.5em;
+        margin-left: 2.5%;
+    }
 }
 
 @media (max-width: 800px) {

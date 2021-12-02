@@ -21,13 +21,72 @@ export const showMap = function() {
 
     function showFilters () {
         const section = document.createElement("section");
+        section.classList.add("filters");
         content.appendChild(section);
+
         const textInput = document.createElement("input");
+        textInput.classList.add("input");
         textInput.setAttribute("type", "text");
         textInput.setAttribute("placeholder", "species");
         section.appendChild(textInput);
         helpers.addListener("keyup", textInput, (e) => {
             filter(e.target.value);
+        });
+
+        const lenghtSlider = document.createElement("input");
+        lenghtSlider.setAttribute("type", "text");
+        lenghtSlider.setAttribute("id", "lenghtSlider");
+        section.appendChild(lenghtSlider);
+
+        const lengthLabel = document.createElement("label");
+        lengthLabel.textContent = "length (cm)";
+        lengthLabel.setAttribute("for", "lengthSlider");
+        section.appendChild(lengthLabel);
+
+        var custom_values = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 125, 150, 175, 200, "more"];
+        var my_from = custom_values.indexOf(0);
+        var my_to = custom_values.indexOf("more");
+
+        ionRangeSlider("#lenghtSlider", {
+            skin: "round",
+            type: "double",
+            grid: true,
+            from: my_from,
+            to: my_to,
+            prefix: "g",
+            values: custom_values,
+            onChange: (data) => {
+                console.log("From:", data.from_value);
+                console.log("To: ", data.to_value);
+            }
+        });
+
+        const weightSlider = document.createElement("input");
+        weightSlider.setAttribute("type", "text");
+        weightSlider.setAttribute("id", "weightSlider");
+        section.appendChild(weightSlider);
+
+        const weightLabel = document.createElement("label");
+        weightLabel.textContent = "weight (cm)";
+        lengthLabel.setAttribute("for", "weightSlider");
+        section.appendChild(weightLabel);
+
+        var custom_values = [0, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 7500, 10000, "more"];
+        var my_from = custom_values.indexOf(0);
+        var my_to = custom_values.indexOf("more");
+
+        ionRangeSlider("#weightSlider", {
+            skin: "round",
+            type: "double",
+            grid: true,
+            from: my_from,
+            to: my_to,
+            prefix: "g",
+            values: custom_values,
+            onChange: (data) => {
+                console.log("From:", data.from_value);
+                console.log("To: ", data.to_value);
+            }
         });
     }
 
