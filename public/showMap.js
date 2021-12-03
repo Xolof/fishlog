@@ -5,6 +5,7 @@ export const showMap = function() {
 
     let data = {};
     const content = helpers.getId("content");
+    let inner;
     let map;
     const markers = new L.FeatureGroup();
 
@@ -22,12 +23,12 @@ export const showMap = function() {
     function showFilters () {
         const section = document.createElement("section");
         section.classList.add("filters");
-        content.appendChild(section);
+        inner.appendChild(section);
 
         const textInput = document.createElement("input");
         textInput.classList.add("input");
         textInput.setAttribute("type", "text");
-        textInput.setAttribute("placeholder", "species");
+        textInput.setAttribute("placeholder", "Filter by species");
         section.appendChild(textInput);
         helpers.addListener("keyup", textInput, (e) => {
             filter(e.target.value);
@@ -105,7 +106,7 @@ export const showMap = function() {
         let mapDiv = document.createElement("div");
         mapDiv.setAttribute("id", "map");
         mapDiv.setAttribute("class", "full_height");
-        content.appendChild(mapDiv);
+        inner.appendChild(mapDiv);
 
         map = L.map('map').setView([56.04, 12.65], 10);
 
@@ -145,6 +146,12 @@ export const showMap = function() {
     }
 
     function render() {
+        inner = document.createElement("div");
+        inner.classList.add("content_inner");
+        content.appendChild(inner);
+        const heading = document.createElement("h2");
+        heading.textContent = "Catches";
+        inner.appendChild(heading);
         showFilters();
         showMap(data);
     }

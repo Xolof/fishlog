@@ -14,10 +14,10 @@ const main = async function() {
 
     const nav = document.getElementsByClassName("main_nav")[0];
     nav.innerHTML = `
-    <a id="nav_add">Add catch</a>
-    <a id="nav_show">Show list</a>
-    <a id="nav_showMap">Show map</a>
-    <a id="nav_login">${ state.getLoggedIn() ? "Logout" : "Login" }</a>`;
+    <a id="nav_add"><img src="./images/add.svg"></a>
+    <a id="nav_show"><img src="./images/list.svg"></a>
+    <a id="nav_showMap"><img src="./images/map.svg"></a>
+    <a id="nav_login"><img src="./images/${ state.getLoggedIn() ? "logout" : "login" }.svg"></a>`;
 
     add.init();
 

@@ -41,6 +41,7 @@ export const add = function() {
         if (!state.getLoggedIn()) {
             content.innerHTML = `
                 <div class="content_inner">
+                    <h2>Add</h2>
                     <div class="img_wrapper">
                         <img src="./images/atlantic_mackerel_2.jpg" >
                     </div>

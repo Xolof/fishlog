@@ -5,6 +5,7 @@ export const login = function() {
     function init() {
         helpers.getId("content").innerHTML = `
         <div class="content_inner">
+            <h2>Sign in</h2>
             <form action="" id="add-form">
                 <input type="text" id="email" placeholder="Email" class="input">
                 <input type="password" id="password" placeholder="Password" class="input">
@@ -48,7 +49,7 @@ export const login = function() {
             localStorage.removeItem("token");
             state.setLoggedIn(false);
             const loginButton = helpers.getId("nav_login");
-            loginButton.textContent = "Login";
+            loginButton.innerHTML = "<img src='./images/login.svg'>";
             return;
         } else {
             helpers.showFlashMessage("Logout failed.", "error");
@@ -69,7 +70,7 @@ export const login = function() {
         if (json.success) {
             localStorage.setItem("token", json.token);
             state.setLoggedIn(true);
-            helpers.getId("nav_login").textContent = "Logout";
+            helpers.getId("nav_login").innerHTML = "<img src='./images/logout.svg'>";
             helpers.showFlashMessage("You logged in!", "success");
         } else {
             helpers.showFlashMessage("Login failed.", "error");
