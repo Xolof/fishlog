@@ -1,5 +1,6 @@
 import { helpers } from "./helpers.js";
 import { state } from "./state.js";
+import { showMap as showMapView } from "./showMap.js";
 
 export const add = function() {
     let coordinates = false;
@@ -127,6 +128,8 @@ export const add = function() {
 
         if (json.success) {
             helpers.showFlashMessage("Catch added!", "success");
+            helpers.resetContent();
+            showMapView.init();
         } else if (json.error) {
             helpers.showFlashMessage(json.error, "error");
         } else {

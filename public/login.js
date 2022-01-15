@@ -1,5 +1,6 @@
 import { helpers } from "./helpers.js";
 import { state } from './state.js';
+import { showMap } from "./showMap.js";
 
 export const login = function() {
     function init() {
@@ -72,6 +73,8 @@ export const login = function() {
             state.setLoggedIn(true);
             helpers.getId("nav_login").innerHTML = "<img src='./images/logout.svg'>";
             helpers.showFlashMessage("You logged in!", "success");
+            helpers.resetContent();
+            showMap.init();
         } else {
             helpers.showFlashMessage("Login failed.", "error");
         }

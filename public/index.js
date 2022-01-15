@@ -19,7 +19,7 @@ const main = async function() {
     <a id="nav_showMap"><img src="./images/map.svg"></a>
     <a id="nav_login"><img src="./images/${ state.getLoggedIn() ? "logout" : "login" }.svg"></a>`;
 
-    add.init();
+    showMap.init();
 
     helpers.addListener("click", helpers.getId("nav_add"), (e) => {
         helpers.resetContent();
@@ -42,7 +42,7 @@ const main = async function() {
             login.init();
         } else {
             await login.logout();
-            add.init();
+            showMap.init();
         }
     });
 }();
