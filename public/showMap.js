@@ -1,5 +1,6 @@
 import { helpers } from "./helpers.js";
 import { state } from './state.js';
+import { deleteCatch } from './deleteCatch.js';
 
 const API_URL = "http://localhost:8000";
 
@@ -10,6 +11,8 @@ export const showMap = function() {
     let inner;
     let map;
     const markers = new L.FeatureGroup();
+
+    var handlers = [];
 
     var filterString = "";
     var minLength = 0;
@@ -24,6 +27,7 @@ export const showMap = function() {
     }
     
     async function init () {
+        clearListeners();
         data = await getData();
         render();
     }
@@ -133,6 +137,7 @@ export const showMap = function() {
 
     function clearMarkers () {
         markers.clearLayers();
+        clearListeners();
     }
 
     function addMarkers (newData) {
@@ -162,16 +167,26 @@ export const showMap = function() {
             markers.addLayer(marker);
         });
 
-        document.addEventListener("click", (e) => {
+        const deleteHandler = (e) => {
             const targetArr = e.target.id.split("_");
-            console.log(targetArr[0]);
-            console.log(targetArr[2]);
-        });
-        // If we want to delete, simply perform the delete request and upon success rerender map.
-        // We need a separate module for deleting.
-        //
+            if (targetArr[0] === "delete") {
+                deleteCatch.remove(targetArr[2]);
+            }
+        }
+
+        handlers.push(deleteHandler);
+
+        document.addEventListener("click", deleteHandler);
+
         // If we want to edit, render an edit form similar to the add form with the current data prefilled.
         // We need a separate module for editing.
+    }
+
+    function clearListeners() {
+        handlers.forEach(handler => {
+            document.removeEventListener("click", handler);
+        });
+        handlers = [];
     }
 
     function render() {
