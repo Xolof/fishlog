@@ -9,6 +9,12 @@ export const showMap = function() {
     let map;
     const markers = new L.FeatureGroup();
 
+    var filterString = "";
+    var minLength = 0;
+    var maxLength = "more";
+    var minWeight = 0;
+    var maxWeight = "more";
+
     async function getData () {
         let res = await fetch("http://localhost:8000/api/public_fishcatch");
         let data = await res.json();
@@ -31,7 +37,8 @@ export const showMap = function() {
         textInput.setAttribute("placeholder", "Filter by species");
         section.appendChild(textInput);
         helpers.addListener("keyup", textInput, (e) => {
-            filter(e.target.value);
+            filterString = e.target.value;
+            filter();
         });
 
         const lenghtSlider = document.createElement("input");
@@ -58,7 +65,10 @@ export const showMap = function() {
             values: custom_values,
             onChange: (data) => {
                 console.log("From:", data.from_value);
+                minLength = data.from_value;
                 console.log("To: ", data.to_value);
+                maxLength = data.to_value;
+                filter();
             }
         });
 
@@ -86,18 +96,22 @@ export const showMap = function() {
             values: custom_values,
             onChange: (data) => {
                 console.log("From:", data.from_value);
+                minWeight = data.from_value;
                 console.log("To: ", data.to_value);
+                maxWeight = data.to_value;
+                filter();
             }
         });
     }
 
-    function filter (string) {
-        if (string === "") {
-            clearMarkers();
-            addMarkers(data);
-            return;
-        }
-        const filteredData = data.filter(item => item.species.includes(string));
+    function filter () {
+        const filteredData = data
+            .filter(item => item.species.includes(filterString))
+            .filter(item => item.length >= minLength)
+            .filter(item => item.length <= maxLength)
+            .filter(item => item.weight >= minWeight)
+            .filter(item => item.weight <= maxWeight)
+        ;
         clearMarkers();
         addMarkers(filteredData);
     }
