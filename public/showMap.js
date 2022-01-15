@@ -106,7 +106,7 @@ export const showMap = function() {
 
     function filter () {
         const filteredData = data
-            .filter(item => item.species.includes(filterString))
+            .filter(item => item.species.toLowerCase().includes(filterString.toLowerCase()))
             .filter(item => item.length >= minLength)
             .filter(item => item.length <= maxLength)
             .filter(item => item.weight >= minWeight)
