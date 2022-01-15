@@ -3,7 +3,7 @@ export const state = function () {
     let isLoggedIn = false;
 
     async function verifyToken() {
-        const url = "http://localhost:8000/api/get_user?token=" + localStorage.getItem("token")
+        const url = "http://localhost:8000/api/get_user?token=" + localStorage.getItem("token");
         const res = await fetch(url, {
             method: "GET",
             headers: {
@@ -12,8 +12,7 @@ export const state = function () {
         });
         
         const json = await res.json();
-        if (json.user) return true;
-        return false;
+        return json.user ?? false;
     }
 
     function getLoggedIn() {

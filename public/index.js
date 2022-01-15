@@ -8,7 +8,12 @@ import { login } from "./login.js";
 import { state } from './state.js';
 
 const main = async function() {
-    if (await state.verifyToken()) {
+    const user = await state.verifyToken();
+    if (user) {
+        const userInfo = document.createElement("p");
+        userInfo.setAttribute("id", "userInfo");
+        userInfo.textContent = `Logged in as ${user.name}`
+        document.getElementById("main").prepend(userInfo);
         state.setLoggedIn(true);
     };
 
