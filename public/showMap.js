@@ -64,9 +64,7 @@ export const showMap = function() {
             prefix: "cm",
             values: custom_values,
             onChange: (data) => {
-                console.log("From:", data.from_value);
                 minLength = data.from_value;
-                console.log("To: ", data.to_value);
                 maxLength = data.to_value;
                 filter();
             }
@@ -95,9 +93,7 @@ export const showMap = function() {
             prefix: "g",
             values: custom_values,
             onChange: (data) => {
-                console.log("From:", data.from_value);
                 minWeight = data.from_value;
-                console.log("To: ", data.to_value);
                 maxWeight = data.to_value;
                 filter();
             }
