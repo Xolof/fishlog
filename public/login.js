@@ -51,6 +51,7 @@ export const login = function() {
             state.setLoggedIn(false);
             const loginButton = helpers.getId("nav_login");
             loginButton.innerHTML = "<img src='./images/login.svg'>";
+            loginButton.setAttribute("title", "Login");
             return;
         } else {
             helpers.showFlashMessage("Logout failed.", "error");
@@ -71,7 +72,9 @@ export const login = function() {
         if (json.success) {
             localStorage.setItem("token", json.token);
             state.setLoggedIn(true);
-            helpers.getId("nav_login").innerHTML = "<img src='./images/logout.svg'>";
+            let loginButton = helpers.getId("nav_login");
+            loginButton.innerHTML = "<img src='./images/logout.svg'>";
+            loginButton.setAttribute("title", "Logout");
             helpers.showFlashMessage("You logged in!", "success");
             helpers.resetContent();
             showMap.init();
