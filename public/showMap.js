@@ -54,7 +54,7 @@ export const showMap = function() {
             grid: true,
             from: my_from,
             to: my_to,
-            prefix: "g",
+            prefix: "cm",
             values: custom_values,
             onChange: (data) => {
                 console.log("From:", data.from_value);
@@ -68,7 +68,7 @@ export const showMap = function() {
         section.appendChild(weightSlider);
 
         const weightLabel = document.createElement("label");
-        weightLabel.textContent = "weight (cm)";
+        weightLabel.textContent = "weight (g)";
         lengthLabel.setAttribute("for", "weightSlider");
         section.appendChild(weightLabel);
 
