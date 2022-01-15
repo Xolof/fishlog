@@ -76,6 +76,7 @@ body {
     background-color: #262626;
     color: #ebebeb;
     border-radius: 4px;
+    padding-bottom: 2.5em;
 
     .results_image {
         display: block;
@@ -140,7 +141,7 @@ img,
     h2 {
         text-align: center;
     }
-    padding: 1.4em 0.4em;
+    padding: 0.2em 0.4em;
     #catch_list {
         tbody {
             tr:nth-child(odd) {
@@ -355,4 +356,15 @@ img,
         width: 150px;
         height: auto;
     }
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 0.5em;
+    width: 100%;
+    p {
+        text-align: center;
+    }
+    font-size: 0.8em;
 }

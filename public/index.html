@@ -20,6 +20,7 @@
             <nav class="main_nav">
             </nav>
             <div id="content"></div>
+            <footer id="footer"><p>&#169; xolof <span id="currentYear"></span></p></footer>
         </div>
     </div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
@@ -35,5 +36,8 @@
         import { login } from './login.js';
     </script>  
     <script type="module" src="index.js"></script>
+    <script>
+        document.getElementById("currentYear").innerHTML = new Date().getFullYear();
+    </script>
 </body>
 </html>
