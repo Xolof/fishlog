@@ -1,4 +1,6 @@
 import { helpers } from "./helpers.js";
+import { state } from './state.js';
+
 const API_URL = "http://localhost:8000";
 
 export const showMap = function() {
@@ -137,6 +139,11 @@ export const showMap = function() {
         newData.forEach(c => {
             const lat = c.location.split(",")[0];
             const lon = c.location.split(",")[1];
+            const catchId = `catch_${c.id}`
+            const editButtons = c.username === state.getUserName()
+                ? `<button id='edit_${catchId}'>Edit</button><button id='delete_${catchId}'>Delete</button>`
+                : "";
+
             const popupContent =`
                 <section>
                     <h2>${c.species}</h2>
@@ -148,11 +155,23 @@ export const showMap = function() {
                     <p>${c.length} cm</p>
                     <p>${c.weight} g</p>
                     <p>Caught by ${c.username}</p>
+                    ${editButtons}
                 </section>
             `;
             const marker = L.marker([lat, lon]).bindPopup(popupContent);
             markers.addLayer(marker);
         });
+
+        document.addEventListener("click", (e) => {
+            const targetArr = e.target.id.split("_");
+            console.log(targetArr[0]);
+            console.log(targetArr[2]);
+        });
+        // If we want to delete, simply perform the delete request and upon success rerender map.
+        // We need a separate module for deleting.
+        //
+        // If we want to edit, render an edit form similar to the add form with the current data prefilled.
+        // We need a separate module for editing.
     }
 
     function render() {
