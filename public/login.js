@@ -49,6 +49,7 @@ export const login = function() {
             helpers.showFlashMessage("You logged out.", "success");
             localStorage.removeItem("token");
             state.setLoggedIn(false);
+            state.setUserName("");
             const userInfo = document.getElementById("userInfo");
             userInfo.parentNode.removeChild(userInfo);
             const loginButton = helpers.getId("nav_login");
@@ -75,6 +76,7 @@ export const login = function() {
             localStorage.setItem("token", json.token);
             const user = await state.verifyToken();
             state.setLoggedIn(true);
+            state.setUserName(user.name);
             const userInfo = document.createElement("p");
             userInfo.setAttribute("id", "userInfo");
             userInfo.textContent = `Logged in as ${user.name}`

@@ -12,8 +12,9 @@ const main = async function() {
     if (user) {
         const userInfo = document.createElement("p");
         userInfo.setAttribute("id", "userInfo");
-        userInfo.textContent = `Logged in as ${user.name}`
+        userInfo.textContent = `Logged in as ${user.name}`;
         document.getElementById("main").prepend(userInfo);
+        state.setUserName(user.name);
         state.setLoggedIn(true);
     };
 
