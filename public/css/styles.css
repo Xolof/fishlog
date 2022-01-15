@@ -294,4 +294,7 @@ img,
 #userInfo {
   font-size: 0.8em; }
 
+.leaflet-popup-content p {
+  margin: 8px 0 !important; }
+
 /*# sourceMappingURL=styles.css.map */
