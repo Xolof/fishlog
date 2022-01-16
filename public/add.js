@@ -64,6 +64,7 @@ export const add = function() {
                 <input type="number" id="add_input_weight" placeholder="Weight (g)" class="input">
                 <input type="date" id="add_input_date" class="input">
                 <button id="add_button_location" class="input">Add location</button>
+                <label for="uploadImage">Image</label>
                 <input type="file" id="uploadImage">
                 <button id="add_catch" class="button">Save</button>
             </form>
