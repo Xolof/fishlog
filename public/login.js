@@ -2,6 +2,8 @@ import { helpers } from "./helpers.js";
 import { state } from './state.js';
 import { showMap } from "./showMap.js";
 
+const API_URL = "http://localhost:8000";
+
 export const login = function() {
     function init() {
         helpers.getId("content").innerHTML = `
@@ -35,7 +37,7 @@ export const login = function() {
     }
 
     async function logout() {
-        const url = "http://localhost:8000/api/logout?token=" + localStorage.getItem("token")
+        const url = API_URL + "/api/logout?token=" + localStorage.getItem("token")
         const res = await fetch(url, {
             method: "GET",
             headers: {
