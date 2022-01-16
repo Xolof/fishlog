@@ -147,7 +147,7 @@ export const showMap = function() {
             const lon = c.location.split(",")[1];
             const catchId = `catch_${c.id}`
             const editButtons = c.username === state.getUserName()
-                ? `<button id='edit_${catchId}'>Edit</button><button id='delete_${catchId}'>Delete</button>`
+                ? `<div class="editButtons"><button id='edit_${catchId}'>Edit</button><button id='delete_${catchId}'>Delete</button></div>`
                 : "";
 
             const popupContent =`

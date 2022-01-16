@@ -373,8 +373,21 @@ img,
     font-size: 0.8em;
 }
 
-.leaflet-popup-content p {
-    margin: 8px 0 !important;
+.leaflet-popup-content {
+    p {
+        margin: 8px 0 !important;
+    }
+
+    .editButtons {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            width: 48%;
+            height: 2.4em;
+            cursor: pointer;
+        }
+    }
 }
 
 #preview_image {

@@ -296,6 +296,13 @@ img,
 
 .leaflet-popup-content p {
   margin: 8px 0 !important; }
+.leaflet-popup-content .editButtons {
+  display: flex;
+  justify-content: space-between; }
+  .leaflet-popup-content .editButtons button {
+    width: 48%;
+    height: 2.4em;
+    cursor: pointer; }
 
 #preview_image {
   width: 40%;
