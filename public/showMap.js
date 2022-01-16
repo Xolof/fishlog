@@ -1,5 +1,6 @@
 import { helpers } from "./helpers.js";
 import { state } from './state.js';
+import { editCatch } from './editCatch.js';
 import { deleteCatch } from './deleteCatch.js';
 
 const API_URL = "http://localhost:8000";
@@ -167,19 +168,19 @@ export const showMap = function() {
             markers.addLayer(marker);
         });
 
-        const deleteHandler = (e) => {
+        const deleteEditHandler = (e) => {
             const targetArr = e.target.id.split("_");
             if (targetArr[0] === "delete") {
                 deleteCatch.remove(targetArr[2]);
             }
+            if (targetArr[0] === "edit") {
+                editCatch.init(targetArr[2]);
+            }
         }
 
-        handlers.push(deleteHandler);
+        handlers.push(deleteEditHandler);
 
-        document.addEventListener("click", deleteHandler);
-
-        // If we want to edit, render an edit form similar to the add form with the current data prefilled.
-        // We need a separate module for editing.
+        document.addEventListener("click", deleteEditHandler);
     }
 
     function clearListeners() {
