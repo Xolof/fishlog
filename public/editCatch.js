@@ -35,7 +35,7 @@ export const editCatch = function() {
     function showMap (location) {
         let mapDiv = document.createElement("div");
         mapDiv.setAttribute("id", "map");
-        helpers.getId("content").appendChild(mapDiv);
+        helpers.getId("add_button_location").insertAdjacentElement("afterend", mapDiv);
 
         var lat = location.split(",")[0];
         var lng = location.split(",")[1];

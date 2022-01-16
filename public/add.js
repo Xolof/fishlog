@@ -13,7 +13,7 @@ export const add = function() {
     function showMap () {
         let mapDiv = document.createElement("div");
         mapDiv.setAttribute("id", "map");
-        helpers.getId("content").appendChild(mapDiv);
+        helpers.getId("add_button_location").insertAdjacentElement("afterend", mapDiv);
 
         var map = L.map('map').setView([56.04, 12.65], 10);
 
