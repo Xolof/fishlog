@@ -62,7 +62,7 @@ export const showMap = function() {
         var my_from = custom_values.indexOf(0);
         var my_to = custom_values.indexOf("more");
 
-        ionRangeSlider("#lenghtSlider", {
+        $("#lenghtSlider").ionRangeSlider({
             skin: "round",
             type: "double",
             grid: true,
@@ -76,7 +76,7 @@ export const showMap = function() {
                 filter();
             }
         });
-
+        
         const weightSlider = document.createElement("input");
         weightSlider.setAttribute("type", "text");
         weightSlider.setAttribute("id", "weightSlider");
@@ -91,7 +91,7 @@ export const showMap = function() {
         var my_from = custom_values.indexOf(0);
         var my_to = custom_values.indexOf("more");
 
-        ionRangeSlider("#weightSlider", {
+        $("#weightSlider").ionRangeSlider({
             skin: "round",
             type: "double",
             grid: true,
