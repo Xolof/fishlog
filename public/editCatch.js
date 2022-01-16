@@ -33,10 +33,6 @@ export const editCatch = function() {
     }
 
     function showMap (location) {
-        let mapDiv = document.createElement("div");
-        mapDiv.setAttribute("id", "map");
-        helpers.getId("add_button_location").insertAdjacentElement("afterend", mapDiv);
-
         var lat = location.split(",")[0];
         var lng = location.split(",")[1];
         coordinates = lat + "," + lng;
@@ -55,8 +51,6 @@ export const editCatch = function() {
             coordinates = e.latlng.lat + "," + e.latlng.lng;
             lat = e.latlng.lat;
             lng = e.latlng.lng
-            const locationButton = helpers.getId("add_button_location");
-            locationButton.textContent = `${lat} ${lng}`;
 
             layerGroup.clearLayers();
 
@@ -93,7 +87,8 @@ export const editCatch = function() {
                 <input type="number" id="add_input_length" placeholder="Length (cm)" class="input" value="${catchData.length}">
                 <input type="number" id="add_input_weight" placeholder="Weight (g)" class="input" value="${catchData.weight}">
                 <input type="date" id="add_input_date" class="input" value="${catchData.date}">
-                <button id="add_button_location" class="input">${catchData.location}</button>
+                <p>Click on the map to set location</p>
+                <div id="map"></div>
                 <img src="${API_URL}${catchData.imageurl}" alt="Catch image" id="preview_image" />
                 <label for="uploadImage" id="uploadImageLabel">Change image</label>
                 <input type="file" id="uploadImage">
@@ -108,18 +103,8 @@ export const editCatch = function() {
         });
 
         const addButton = helpers.getId("add_catch");
-        const locationButton = helpers.getId("add_button_location");
 
         showMap(catchData.location);
-
-        helpers.addListener("click", locationButton, (e) => {
-            e.preventDefault();
-            if (!helpers.getId("map")) {
-                showMap(catchData.location);
-            } else {
-                hideMap();
-            }
-        });
 
         helpers.addListener("click", addButton, (e) => {
             e.preventDefault();

@@ -5,16 +5,7 @@ import { showMap as showMapView } from "./showMap.js";
 export const add = function() {
     let coordinates = false;
 
-    function hideMap () {
-        let map = helpers.getId("map");
-        map.parentNode.removeChild(map);
-    }
-
     function showMap () {
-        let mapDiv = document.createElement("div");
-        mapDiv.setAttribute("id", "map");
-        helpers.getId("add_button_location").insertAdjacentElement("afterend", mapDiv);
-
         var map = L.map('map').setView([56.04, 12.65], 10);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -27,11 +18,7 @@ export const add = function() {
             coordinates = e.latlng.lat + "," + e.latlng.lng;
             const lat = e.latlng.lat;
             const lng = e.latlng.lng
-            const locationButton = helpers.getId("add_button_location");
-            locationButton.textContent = `${lat} ${lng}`;
-
             layerGroup.clearLayers();
-
             L.marker([lat, lng]).addTo(layerGroup);
         })
     }
@@ -63,7 +50,8 @@ export const add = function() {
                 <input type="number" id="add_input_length" placeholder="Length (cm)" class="input">
                 <input type="number" id="add_input_weight" placeholder="Weight (g)" class="input">
                 <input type="date" id="add_input_date" class="input">
-                <button id="add_button_location" class="input">Add location</button>
+                <p>Click on the map to set location</p>
+                <div id="map"></div>
                 <img alt="Catch image" id="preview_image" style="display: none;" />
                 <label for="uploadImage" id="uploadImageLabel">Add image</label>
                 <input type="file" id="uploadImage">
@@ -71,6 +59,8 @@ export const add = function() {
             </form>
         </div>
         `;
+
+        showMap();
 
         document.getElementById("uploadImage").addEventListener("change", (e) => {
             const src = URL.createObjectURL(e.target.files[0]);
@@ -80,16 +70,6 @@ export const add = function() {
         });
 
         const addButton = helpers.getId("add_catch");
-        const locationButton = helpers.getId("add_button_location");
-
-        helpers.addListener("click", locationButton, (e) => {
-            e.preventDefault();
-            if (!helpers.getId("map")) {
-                showMap();
-            } else {
-                hideMap();
-            }
-        });
 
         helpers.addListener("click", addButton, (e) => {
             e.preventDefault();
