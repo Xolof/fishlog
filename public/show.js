@@ -23,7 +23,7 @@ export const show = function() {
     function render() {
         const content = getId("content")
         content.innerHTML = `
-            <div class="content_inner">
+            <div class="content_inner" id="content_inner">
                 <h2>Catches</h2>
                 <table id="catch_list">
                     <thead>
@@ -39,6 +39,14 @@ export const show = function() {
                 </table>
             </div>
         `;
+
+        if (!data.length) {
+            const contentInner = getId("content_inner");
+            const infoPara = document.createElement("p");
+            infoPara.classList.add("infoPara");
+            infoPara.textContent = "There are not yet any catches.";
+            contentInner.appendChild(infoPara);
+        }
 
         const list = getId("catch_list");
 
