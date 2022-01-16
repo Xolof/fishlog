@@ -94,9 +94,9 @@ export const editCatch = function() {
                 <input type="number" id="add_input_weight" placeholder="Weight (g)" class="input" value="${catchData.weight}">
                 <input type="date" id="add_input_date" class="input" value="${catchData.date}">
                 <button id="add_button_location" class="input">${catchData.location}</button>
-                <label for="uploadImage">Image</label>
-                <input type="file" id="uploadImage">
                 <img src="${API_URL}${catchData.imageurl}" alt="Catch image" id="preview_image" />
+                <label for="uploadImage" id="uploadImageLabel">Change image</label>
+                <input type="file" id="uploadImage">
                 <button id="add_catch" class="button">Save</button>
             </form>
         </div>
