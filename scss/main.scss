@@ -389,4 +389,30 @@ img,
 
 #uploadImage {
     padding: 1em 0;
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+}
+
+#uploadImageLabel,
+#add_button_location {
+    display: block;
+    font-size: 1.8rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.8rem;
+    background: #fff;
+    color: #000;
+    border-radius: 2px;
+    border: 1px solid #818181;
+    &:hover {
+        background: #e6e6e6;
+    }
+}
+
+#add_input_date,
+#uploadImageLabel,
+#add_button_location {
+    cursor: pointer;
 }
