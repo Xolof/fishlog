@@ -21,7 +21,7 @@ export const showMap = function() {
     var maxWeight = "more";
 
     async function getData () {
-        let res = await fetch("http://localhost:8000/api/public_fishcatch");
+        let res = await fetch(`${API_URL}/api/public_fishcatch`);
         let data = await res.json();
         return data;
     }
