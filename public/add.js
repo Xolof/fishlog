@@ -64,12 +64,20 @@ export const add = function() {
                 <input type="number" id="add_input_weight" placeholder="Weight (g)" class="input">
                 <input type="date" id="add_input_date" class="input">
                 <button id="add_button_location" class="input">Add location</button>
-                <label for="uploadImage">Image</label>
+                <img alt="Catch image" id="preview_image" style="display: none;" />
+                <label for="uploadImage" id="uploadImageLabel">Add image</label>
                 <input type="file" id="uploadImage">
                 <button id="add_catch" class="button">Save</button>
             </form>
         </div>
         `;
+
+        document.getElementById("uploadImage").addEventListener("change", (e) => {
+            const src = URL.createObjectURL(e.target.files[0]);
+            const previewImage = document.getElementById("preview_image");
+            previewImage.style.display = "initial";
+            previewImage.src = src;
+        });
 
         const addButton = helpers.getId("add_catch");
         const locationButton = helpers.getId("add_button_location");
