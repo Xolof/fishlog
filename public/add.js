@@ -56,15 +56,18 @@ export const add = function() {
         };
 
         content.innerHTML = `
-        <form action="" id="add-form">
-            <input type="text" id="add_input_species" placeholder="Species" class="input">
-            <input type="number" id="add_input_length" placeholder="Length (cm)" class="input">
-            <input type="number" id="add_input_weight" placeholder="Weight (g)" class="input">
-            <input type="date" id="add_input_date" class="input">
-            <button id="add_button_location" class="input">Add location</button>
-            <input type="file" id="uploadImage">
-            <button id="add_catch" class="button">Save</button>
-        </form>
+        <div class="content_inner">
+            <h2>Add</h2>
+            <form action="" id="add-form">
+                <input type="text" id="add_input_species" placeholder="Species" class="input">
+                <input type="number" id="add_input_length" placeholder="Length (cm)" class="input">
+                <input type="number" id="add_input_weight" placeholder="Weight (g)" class="input">
+                <input type="date" id="add_input_date" class="input">
+                <button id="add_button_location" class="input">Add location</button>
+                <input type="file" id="uploadImage">
+                <button id="add_catch" class="button">Save</button>
+            </form>
+        </div>
         `;
 
         const addButton = helpers.getId("add_catch");
