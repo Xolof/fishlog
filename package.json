@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run css && cp node_modules/ion-rangeslider/js/ion.rangeSlider.min.js public && cp node_modules/ion-rangeslider/css/ion.rangeSlider.min.css public/css && cp node_modules/jquery/dist/jquery.min.js public",
+    "build": "npm run css && cp node_modules/ion-rangeslider/js/ion.rangeSlider.min.js public/dist && cp node_modules/ion-rangeslider/css/ion.rangeSlider.min.css public/css && cp node_modules/jquery/dist/jquery.min.js public/dist",
     "css": "sass ./src/scss/main.scss public/css/styles.css",
     "dev": "nodemon --ext js,html,css,json index.js",
     "start": "node index.js"
