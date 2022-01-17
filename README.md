@@ -1,8 +1,8 @@
 # Fishlog
+A frontend for the FishLog app. Built with Javascript, Express JS, Sass and Ion Rangeslider.
 
-A frontend for the FishLog app.
-
-Built with Javascript, Express JS, Sass and Ion Rangeslider.
+## Install dependencies
+`npm install`
 
 ## Build CSS
 `npm run css`
@@ -14,4 +14,4 @@ Built with Javascript, Express JS, Sass and Ion Rangeslider.
 `npm run dev`
 
 ## Run in production mode
-`npm run start`
+`npm start`
