@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run css && cp node_modules/ion-rangeslider/js/ion.rangeSlider.min.js public && cp node_modules/ion-rangeslider/css/ion.rangeSlider.min.css public/css && cp node_modules/jquery/dist/jquery.min.js public",
+    "build": "npm run css && cp node_modules/ion-rangeslider/js/ion.rangeSlider.min.js src/js && cp node_modules/ion-rangeslider/css/ion.rangeSlider.min.css public/css && cp node_modules/jquery/dist/jquery.min.js src/js",
     "css": "sass ./scss/main.scss public/css/styles.css",
     "dev": "nodemon --ext js,html,css,json index.js",
     "start": "node index.js"
@@ -17,5 +17,9 @@
     "ion-rangeslider": "^2.3.1",
     "jquery": "^3.6.0",
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1"
   }
 }
