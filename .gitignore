@@ -1,5 +1,8 @@
 .sass-cache/
 node_modules/
-public/css/*
+public/css/styles.css.map
+public/css/styles.css
+public/css/ion.rangeSlider.min.css
 public/dist/ion.rangeSlider.min.js
 public/dist/jquery.min.js
+public/dist/main.js
