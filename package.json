@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "sass ./scss/main.scss public/css/styles.css",
     "dev": "nodemon --ext js,html,css,json index.js",
     "start": "node index.js"
   },
