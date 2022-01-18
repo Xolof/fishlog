@@ -153,8 +153,8 @@ export const showMap = function() {
                     userPositionMarker.addTo(map);
                     var userIcon = L.icon({
                         iconUrl: './images/user.png',
-                        iconSize:     [40, 40],
-                        iconAnchor:   [20, 20],
+                        iconSize:     [25, 25],
+                        // iconAnchor:   [25, 25],
                     });
                     const marker = L.marker([lat, lon], {icon: userIcon});
 
