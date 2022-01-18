@@ -1,5 +1,8 @@
 "use strict";
 
+import "../css/styles.css";
+import "../css/ion.rangeSlider.css";
+
 import { helpers } from "./helpers.js";
 import { add } from "./add.js";
 import { show } from "./show.js";
