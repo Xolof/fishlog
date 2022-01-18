@@ -2,10 +2,12 @@ import { helpers } from "./helpers.js";
 import { state } from './state.js';
 import { editCatch } from './editCatch.js';
 import { deleteCatch } from './deleteCatch.js';
+import { location } from "./location.js";
 
 const API_URL = "http://localhost:8000";
 
 export const showMap = function() {
+    let updatePositionInterval;
 
     let data = {};
     const content = helpers.getId("content");
@@ -29,6 +31,7 @@ export const showMap = function() {
     
     async function init () {
         clearListeners();
+        clearInterval(updatePositionInterval);
         data = await getData();
         render();
     }
@@ -134,11 +137,40 @@ export const showMap = function() {
         markers.addTo(map);
 
         addMarkers(data);
+
+        // Position
+        let position = null;
+        const userPositionMarker = new L.FeatureGroup();
+
+        updatePositionInterval = setInterval(
+            () => {
+                userPositionMarker.clearLayers();
+                try {
+                    position = location.getLocation();
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    userPositionMarker.addTo(map);
+                    var userIcon = L.icon({
+                        iconUrl: './images/user.png',
+                        iconSize:     [40, 40],
+                        iconAnchor:   [20, 20],
+                    });
+                    const marker = L.marker([lat, lon], {icon: userIcon});
+
+                    userPositionMarker.addLayer(marker);
+                } catch (err) {
+                    console.log("Invalid position");
+                }
+            }, 1000
+        );
+
     }
 
     function clearMarkers () {
         markers.clearLayers();
         clearListeners();
+        clearInterval(updatePositionInterval);
     }
 
     function addMarkers (newData) {

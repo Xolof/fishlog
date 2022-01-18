@@ -9,11 +9,8 @@ import { show } from "./show.js";
 import { showMap } from "./showMap.js";
 import { login } from "./login.js";
 import { state } from './state.js';
-import { location } from "./location.js";
 
 const main = async function() {
-
-    location.getLocation();
 
     const user = await state.verifyToken();
     if (user) {
