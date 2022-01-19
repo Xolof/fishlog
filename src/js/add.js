@@ -1,11 +1,15 @@
 import { helpers } from "./helpers.js";
 import { state } from "./state.js";
 import { showMap as showMapView } from "./showMap.js";
+import { addUserPosition } from "./adduserposition.js";
 
 export const add = function() {
     let coordinates = false;
+    let updatePositionInterval;
 
     function showMap () {
+        clearInterval(updatePositionInterval);
+
         var map = L.map('map').setView([56.04, 12.65], 10);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -20,7 +24,9 @@ export const add = function() {
             const lng = e.latlng.lng
             layerGroup.clearLayers();
             L.marker([lat, lng]).addTo(layerGroup);
-        })
+        });
+
+        updatePositionInterval = addUserPosition.add(L, map);
     }
 
     function init() {

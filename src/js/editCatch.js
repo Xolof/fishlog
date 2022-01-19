@@ -1,11 +1,13 @@
 import { helpers } from "./helpers.js";
 import { state } from "./state.js";
 import { showMap as showMapView } from "./showMap.js";
+import { addUserPosition } from "./adduserposition.js";
 
 const API_URL = "http://localhost:8000";
 
 export const editCatch = function() {
     let coordinates = false;
+    let updatePositionInterval;
 
     async function getCatch (id) {
         var myHeaders = new Headers();
@@ -27,12 +29,14 @@ export const editCatch = function() {
         }
     }
 
-    function hideMap () {
-        let map = helpers.getId("map");
-        map.parentNode.removeChild(map);
-    }
+    // function hideMap () {
+    //     let map = helpers.getId("map");
+    //     map.parentNode.removeChild(map);
+    // }
 
     function showMap (location) {
+        clearInterval(updatePositionInterval);
+
         var lat = location.split(",")[0];
         var lng = location.split(",")[1];
         coordinates = lat + "," + lng;
@@ -55,7 +59,9 @@ export const editCatch = function() {
             layerGroup.clearLayers();
 
             L.marker([lat, lng]).addTo(layerGroup);
-        })
+        });
+
+        updatePositionInterval = addUserPosition.add(L, map);
     }
 
     async function init(id) {

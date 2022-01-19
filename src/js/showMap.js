@@ -2,11 +2,12 @@ import { helpers } from "./helpers.js";
 import { state } from './state.js';
 import { editCatch } from './editCatch.js';
 import { deleteCatch } from './deleteCatch.js';
-import { location } from "./location.js";
+import { addUserPosition } from "./adduserposition.js";
 
 const API_URL = "http://localhost:8000";
 
 export const showMap = function() {
+
     let updatePositionInterval;
 
     let data = {};
@@ -138,33 +139,7 @@ export const showMap = function() {
 
         addMarkers(data);
 
-        // Position
-        let position = null;
-        const userPositionMarker = new L.FeatureGroup();
-
-        updatePositionInterval = setInterval(
-            () => {
-                userPositionMarker.clearLayers();
-                try {
-                    position = location.getLocation();
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-
-                    userPositionMarker.addTo(map);
-                    var userIcon = L.icon({
-                        iconUrl: './images/user.png',
-                        iconSize:     [25, 25],
-                        // iconAnchor:   [25, 25],
-                    });
-                    const marker = L.marker([lat, lon], {icon: userIcon});
-
-                    userPositionMarker.addLayer(marker);
-                } catch (err) {
-                    console.log("Invalid position");
-                }
-            }, 1000
-        );
-
+        updatePositionInterval = addUserPosition.add(L, map);
     }
 
     function clearMarkers () {
