@@ -24,6 +24,7 @@ export const addUserPosition = function () {
                     const marker = L.marker([lat, lon], {icon: userIcon});
 
                     userPositionMarker.addLayer(marker);
+                    console.log("Added user position to map");
                 } catch (err) {
                     console.log("Invalid position");
                 }
