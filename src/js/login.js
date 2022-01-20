@@ -14,6 +14,7 @@ export const login = function() {
                 <input type="password" id="password" placeholder="Password" class="input">
                 <button id="login" class="button">Log in</button>
             </form>
+            <p>Don't have an account yet? <a class="signup_link">Sign up here!</a></p>
         </div>
         `;
 
@@ -33,6 +34,10 @@ export const login = function() {
             } else {
                 helpers.showFlashMessage("Fill out all fields.", "error");
             }
+        });
+
+        helpers.addListener("click", document.querySelector(".signup_link"), (e) => {
+            console.log("Go to sign up form");
         });
     }
 

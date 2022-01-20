@@ -339,4 +339,8 @@ img,
 #add_button_location {
   cursor: pointer; }
 
+a {
+  cursor: pointer;
+  text-decoration: underline; }
+
 /*# sourceMappingURL=styles.css.map */

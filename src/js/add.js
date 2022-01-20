@@ -41,10 +41,19 @@ export const add = function() {
                     </div>
                     <div class="info">
                         <p>You have to log in to be able to add a catch.</p>
-                        <p>Sign in or create an account.</p>
+                        <p><a class="signin_link">Sign in</a> or <a class="signup_link">create an account.</a></p>
                     </div>
                 </div>
-                `;
+            `;
+
+            helpers.addListener("click", document.querySelector(".signin_link"), (e) => {
+                console.log("Go to sign in form");
+            });
+
+            helpers.addListener("click", document.querySelector(".signup_link"), (e) => {
+                console.log("Go to sign up form");
+            });
+
             return;
         };
 
