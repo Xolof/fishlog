@@ -1,6 +1,7 @@
 import { helpers } from "./helpers.js";
 import { state } from './state.js';
 import { showMap } from "./showMap.js";
+import { signup } from "./signup.js";
 
 const API_URL = "http://localhost:8000";
 
@@ -37,7 +38,7 @@ export const login = function() {
         });
 
         helpers.addListener("click", document.querySelector(".signup_link"), (e) => {
-            console.log("Go to sign up form");
+            signup.init();
         });
     }
 

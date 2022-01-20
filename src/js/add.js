@@ -2,6 +2,8 @@ import { helpers } from "./helpers.js";
 import { state } from "./state.js";
 import { showMap as showMapView } from "./showMap.js";
 import { addUserPosition } from "./adduserposition.js";
+import { login } from "./login.js";
+import { signup } from "./signup.js";
 
 export const add = function() {
     let coordinates = false;
@@ -47,11 +49,12 @@ export const add = function() {
             `;
 
             helpers.addListener("click", document.querySelector(".signin_link"), (e) => {
-                console.log("Go to sign in form");
+                helpers.resetContent();
+                login.init();
             });
 
             helpers.addListener("click", document.querySelector(".signup_link"), (e) => {
-                console.log("Go to sign up form");
+                signup.init();
             });
 
             return;

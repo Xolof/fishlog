@@ -16,11 +16,11 @@
   "dependencies": {
     "express": "^4.17.1",
     "ion-rangeslider": "^2.3.1",
-    "jquery": "^3.6.0",
-    "nodemon": "^2.0.15"
+    "jquery": "^3.6.0"
   },
   "devDependencies": {
     "css-loader": "^6.5.1",
+    "nodemon": "^2.0.15",
     "style-loader": "^3.3.1",
     "url-loader": "^4.1.1",
     "webpack": "^5.66.0",
