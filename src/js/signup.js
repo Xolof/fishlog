@@ -1,4 +1,3 @@
-import help from "nodemon/lib/help";
 import { helpers } from "./helpers.js";
 
 const API_URL = "http://localhost:8000";
