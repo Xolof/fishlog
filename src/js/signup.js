@@ -50,6 +50,7 @@ export const signup = function() {
 
         if (json.success) {
             helpers.showFlashMessage("You have signed up!", "success");
+            helpers.resetContent();
             login.init();
         } else {
             helpers.showFlashMessage("Sign up failed.", "error");
