@@ -1,4 +1,7 @@
 import { helpers } from "./helpers.js";
+import { api } from "./api.js";
+
+const API_URL = api.getURL();
 
 const addListener = helpers.addListener;
 const getId = helpers.getId;
