@@ -30,11 +30,11 @@ export const showMap = function() {
         return data;
     }
     
-    async function init () {
+    async function init (location) {
         clearListeners();
         clearInterval(updatePositionInterval);
         data = await getData();
-        render();
+        render(location);
     }
 
     function showFilters () {
@@ -123,13 +123,24 @@ export const showMap = function() {
         addMarkers(filteredData);
     }
 
-    function showMap () {
+    function showMap (location) {
         let mapDiv = document.createElement("div");
         mapDiv.setAttribute("id", "map");
         mapDiv.setAttribute("class", "full_height");
         inner.appendChild(mapDiv);
 
-        map = L.map('map').setView([56.04, 12.65], 10);
+        if (!location) {
+            location = addUserPosition.getUserPosition();
+        }
+
+        if(!location) {
+            map = L.map('map').setView([56.0445,12.5316], 5);    
+        } else {
+            const lat = location[0];
+            const lon = location[1];
+    
+            map = L.map('map').setView([lat, lon], 10);    
+        }
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -197,7 +208,7 @@ export const showMap = function() {
         handlers = [];
     }
 
-    function render() {
+    function render(location) {
         inner = document.createElement("div");
         inner.classList.add("content_inner");
         content.appendChild(inner);
@@ -205,7 +216,7 @@ export const showMap = function() {
         heading.textContent = "Catches";
         inner.appendChild(heading);
         showFilters();
-        showMap(data);
+        showMap(location);
     }
 
     return {

@@ -1,7 +1,13 @@
 import { location } from "./location.js";
 
 export const addUserPosition = function () {
-    // If it works, move to separate file.
+    
+    let userPosition = null;
+
+    function getUserPosition() {
+        return userPosition;
+    }
+
     function add(L, map) {
         // Position
         let position = null;
@@ -14,6 +20,7 @@ export const addUserPosition = function () {
                     position = location.getLocation();
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
+                    userPosition = [lat, lon];
 
                     userPositionMarker.addTo(map);
                     var userIcon = L.icon({
@@ -33,6 +40,7 @@ export const addUserPosition = function () {
     }
 
     return {
-        add
+        add,
+        getUserPosition
     }
 }()

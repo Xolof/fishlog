@@ -139,7 +139,8 @@ export const add = function() {
         if (json.success) {
             helpers.showFlashMessage("Catch added!", "success");
             helpers.resetContent();
-            showMapView.init();
+            const splitLocation = data.location.split(",");
+            showMapView.init([splitLocation[0], splitLocation[1]]);
         } else if (json.error) {
             helpers.showFlashMessage(json.error, "error");
         } else {
