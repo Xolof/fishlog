@@ -3,8 +3,9 @@ import { state } from './state.js';
 import { editCatch } from './editCatch.js';
 import { deleteCatch } from './deleteCatch.js';
 import { addUserPosition } from "./adduserposition.js";
+import { api } from "./api.js";
 
-const API_URL = "http://localhost:8000";
+const API_URL = api.getURL();
 
 export const showMap = function() {
 

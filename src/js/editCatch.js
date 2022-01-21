@@ -2,8 +2,9 @@ import { helpers } from "./helpers.js";
 import { state } from "./state.js";
 import { showMap as showMapView } from "./showMap.js";
 import { addUserPosition } from "./adduserposition.js";
+import { api } from "./api.js";
 
-const API_URL = "http://localhost:8000";
+const API_URL = api.getURL();
 
 export const editCatch = function() {
     let coordinates = false;

@@ -4,6 +4,9 @@ import { showMap as showMapView } from "./showMap.js";
 import { addUserPosition } from "./adduserposition.js";
 import { login } from "./login.js";
 import { signup } from "./signup.js";
+import { api } from "./api.js";
+
+const API_URL = api.getURL();
 
 export const add = function() {
     let coordinates = false;
@@ -126,7 +129,7 @@ export const add = function() {
             formData.append(key, data[key])
         }
 
-        const res = await fetch("http://localhost:8000/api/create", {
+        const res = await fetch(`${API_URL}/api/create`, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")

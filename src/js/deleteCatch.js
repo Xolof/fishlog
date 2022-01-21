@@ -1,7 +1,8 @@
 import { helpers } from "./helpers.js";
 import { showMap as showMapView } from "./showMap.js";
+import { api } from "./api.js";
 
-const API_URL = "http://localhost:8000";
+const API_URL = api.getURL();
 
 export const deleteCatch = function() {
     async function remove (id) {

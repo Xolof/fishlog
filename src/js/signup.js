@@ -1,6 +1,7 @@
 import { helpers } from "./helpers.js";
+import { api } from "./api.js";
 
-const API_URL = "http://localhost:8000";
+const API_URL = api.getURL();
 
 export const signup = function() {
     function init() {
@@ -38,7 +39,7 @@ export const signup = function() {
     }
 
     async function signup(data) {
-        const res = await fetch("http://localhost:8000/api/register", {
+        const res = await fetch(`${API_URL}/api/register`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

@@ -2,8 +2,9 @@ import { helpers } from "./helpers.js";
 import { state } from './state.js';
 import { showMap } from "./showMap.js";
 import { signup } from "./signup.js";
+import { api } from "./api.js";
 
-const API_URL = "http://localhost:8000";
+const API_URL = api.getURL();
 
 export const login = function() {
     function init() {
@@ -43,7 +44,7 @@ export const login = function() {
     }
 
     async function logout() {
-        const url = API_URL + "/api/logout?token=" + localStorage.getItem("token")
+        const url = `${API_URL}/api/logout?token=${localStorage.getItem("token")}`
         const res = await fetch(url, {
             method: "GET",
             headers: {
@@ -70,7 +71,7 @@ export const login = function() {
     }
 
     async function login(data) {
-        const res = await fetch("http://localhost:8000/api/login", {
+        const res = await fetch(`${API_URL}/api/login`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

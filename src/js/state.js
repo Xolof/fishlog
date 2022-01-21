@@ -4,7 +4,7 @@ export const state = function () {
     let userName = "";
 
     async function verifyToken() {
-        const url = "http://localhost:8000/api/get_user?token=" + localStorage.getItem("token");
+        const url = `${API_URL}/api/get_user?token=${localStorage.getItem("token")}`;
         const res = await fetch(url, {
             method: "GET",
             headers: {
