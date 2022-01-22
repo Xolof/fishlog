@@ -137,7 +137,7 @@ export const editCatch = function() {
             helpers.showFlashMessage("Catch updated!", "success");
             helpers.resetContent();
             const splitLocation = data.location.split(",");
-            showMapView.init([splitLocation[0], splitLocation[1]]);
+            showMapView.init([splitLocation[0], splitLocation[1]], id);
         } else if (json.error) {
             console.error(json.error);
             helpers.showFlashMessage(json.error, "error");

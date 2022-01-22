@@ -25,11 +25,11 @@ export const showMap = function() {
     var minWeight = 0;
     var maxWeight = "more";
     
-    async function init (location) {
+    async function init (location, id) {
         clearListeners();
         clearInterval(updatePositionInterval);
         data = await api.getCatches();
-        render(location);
+        render(location, id);
     }
 
     function showFilters () {
@@ -118,7 +118,7 @@ export const showMap = function() {
         addMarkers(filteredData);
     }
 
-    function showMap (location) {
+    function showMap (location, id) {
         let mapDiv = document.createElement("div");
         mapDiv.setAttribute("id", "map");
         mapDiv.setAttribute("class", "full_height");
@@ -143,7 +143,7 @@ export const showMap = function() {
 
         markers.addTo(map);
 
-        addMarkers(data);
+        addMarkers(data, id);
 
         updatePositionInterval = addUserPosition.add(L, map);
     }
@@ -154,7 +154,8 @@ export const showMap = function() {
         clearInterval(updatePositionInterval);
     }
 
-    function addMarkers (newData) {
+    function addMarkers (newData, openId) {
+
         newData.forEach(c => {
             const lat = c.location.split(",")[0];
             const lon = c.location.split(",")[1];
@@ -178,7 +179,13 @@ export const showMap = function() {
                 </section>
             `;
             const marker = L.marker([lat, lon]).bindPopup(popupContent);
+            marker.id = c.id;
+
             markers.addLayer(marker);
+
+            if (parseInt(marker.id) === parseInt(openId)) {
+                marker.openPopup();
+            }
         });
 
         const deleteEditHandler = (e) => {
@@ -203,7 +210,7 @@ export const showMap = function() {
         handlers = [];
     }
 
-    function render(location) {
+    function render(location, id) {
         inner = document.createElement("div");
         inner.classList.add("content_inner");
         content.appendChild(inner);
@@ -211,7 +218,7 @@ export const showMap = function() {
         heading.textContent = "Catches";
         inner.appendChild(heading);
         showFilters();
-        showMap(location);
+        showMap(location, id);
     }
 
     return {
