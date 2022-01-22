@@ -1,8 +1,6 @@
 import { helpers } from "./helpers.js";
 import { api } from "./api.js";
 
-const API_URL = api.getURL();
-
 export const signup = function() {
     function init() {
         helpers.getId("content").innerHTML = `
@@ -31,31 +29,19 @@ export const signup = function() {
                     password
                 };
     
-                signup(data);
+                const json = api.signup(data);
+
+                if (json.success) {
+                    helpers.showFlashMessage("You have signed up!", "success");
+                    helpers.resetContent();
+                    login.init();
+                } else {
+                    helpers.showFlashMessage("Sign up failed.", "error");
+                }
             } else {
                 helpers.showFlashMessage("Fill out all fields.", "error");
             }
         });
-    }
-
-    async function signup(data) {
-        const res = await fetch(`${API_URL}/api/register`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        
-        const json = await res.json();
-
-        if (json.success) {
-            helpers.showFlashMessage("You have signed up!", "success");
-            helpers.resetContent();
-            login.init();
-        } else {
-            helpers.showFlashMessage("Sign up failed.", "error");
-        }
     }
 
     return {

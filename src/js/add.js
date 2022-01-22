@@ -92,7 +92,7 @@ export const add = function() {
 
         const addButton = helpers.getId("add_catch");
 
-        helpers.addListener("click", addButton, (e) => {
+        helpers.addListener("click", addButton, async (e) => {
             e.preventDefault();
 
             const species = helpers.getId("add_input_species").value;
@@ -109,46 +109,31 @@ export const add = function() {
                 && coordinates
                 && uploadImage
             ) {
-                postData ({
+                const data = {
                     "species": species,
                     "length": length,
                     "weight": weight,
                     "date": date,
                     "location": coordinates,
                     "uploadImage": uploadImage
-                });
+                };
+
+                const json = await api.postCatch(data);
+
+                if (json.success) {
+                    helpers.showFlashMessage("Catch added!", "success");
+                    helpers.resetContent();
+                    const splitLocation = data.location.split(",");
+                    showMapView.init([splitLocation[0], splitLocation[1]]);
+                } else if (json.error) {
+                    helpers.showFlashMessage(json.error, "error");
+                } else {
+                    helpers.showFlashMessage("The request failed.", "error");
+                }
             } else {
                 helpers.showFlashMessage("Fill out all fields!", "error");
             }
         })
-    }
-
-    async function postData (data) {
-        let formData = new FormData();
-        for (const key in data) {
-            formData.append(key, data[key])
-        }
-
-        const res = await fetch(`${API_URL}/api/create`, {
-            method: "POST",
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            },
-            body: formData
-        });
-        
-        const json = await res.json();
-
-        if (json.success) {
-            helpers.showFlashMessage("Catch added!", "success");
-            helpers.resetContent();
-            const splitLocation = data.location.split(",");
-            showMapView.init([splitLocation[0], splitLocation[1]]);
-        } else if (json.error) {
-            helpers.showFlashMessage(json.error, "error");
-        } else {
-            helpers.showFlashMessage("The request failed.", "error");
-        }
     }
 
     return {

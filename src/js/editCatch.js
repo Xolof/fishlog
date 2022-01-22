@@ -10,30 +10,14 @@ export const editCatch = function() {
     let coordinates = false;
     let updatePositionInterval;
 
-    async function getCatch (id) {
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
-        
-        var requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow'
-        };
-        
+    async function getCatch (id) {      
         try {
-            const res = await fetch(`${API_URL}/api/fishcatch/${id}`, requestOptions)
-            const json = await res.json();
-            return json;
+            return await api.getCatch(id);
         } catch (e) {
             console.error(e);
             helpers.showFlashMessage("The request failed.", "error");
         }
     }
-
-    // function hideMap () {
-    //     let map = helpers.getId("map");
-    //     map.parentNode.removeChild(map);
-    // }
 
     function showMap (location) {
         clearInterval(updatePositionInterval);

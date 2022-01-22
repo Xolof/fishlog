@@ -24,17 +24,11 @@ export const showMap = function() {
     var maxLength = "more";
     var minWeight = 0;
     var maxWeight = "more";
-
-    async function getData () {
-        let res = await fetch(`${API_URL}/api/public_fishcatch`);
-        let data = await res.json();
-        return data;
-    }
     
     async function init (location) {
         clearListeners();
         clearInterval(updatePositionInterval);
-        data = await getData();
+        data = await api.getCatches();
         render(location);
     }
 

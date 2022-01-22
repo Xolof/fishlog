@@ -44,15 +44,7 @@ export const login = function() {
     }
 
     async function logout() {
-        const url = `${API_URL}/api/logout?token=${localStorage.getItem("token")}`
-        const res = await fetch(url, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        const json = await res.json();
+        const json = await api.logout();
 
         if (json.success) {
             helpers.showFlashMessage("You logged out.", "success");
@@ -70,16 +62,8 @@ export const login = function() {
         }
     }
 
-    async function login(data) {
-        const res = await fetch(`${API_URL}/api/login`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        
-        const json = await res.json();
+    async function login(data) { 
+        const json = await api.login(data);
 
         if (json.success) {
             localStorage.setItem("token", json.token);

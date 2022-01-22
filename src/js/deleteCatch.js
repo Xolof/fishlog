@@ -6,14 +6,8 @@ const API_URL = api.getURL();
 
 export const deleteCatch = function() {
     async function remove (id) {
-        const res = await fetch(`${API_URL}/api/delete/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            }
-        });
-        
-        const json = await res.json();
+       
+        const json = await api.remove(id);
 
         if (json.success) {
             helpers.showFlashMessage("Catch deleted!", "success");
