@@ -2,4 +2,5 @@
 node_modules/
 public/dist/ion.rangeSlider.min.js
 public/dist/jquery.min.js
-public/dist
+public/dist/main.js
+public/dist/main.js.map
