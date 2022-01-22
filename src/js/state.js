@@ -1,5 +1,8 @@
+import { api } from "./api.js";
+
 export const state = function () {
-    
+
+    const API_URL = api.getURL();
     let isLoggedIn = false;
     let userName = "";
 
