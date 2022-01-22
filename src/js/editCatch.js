@@ -131,21 +131,7 @@ export const editCatch = function() {
     }
 
     async function postData (data, id) {
-        let formData = new FormData();
-        for (const key in data) {
-            formData.append(key, data[key])
-        }
-
-        const res = await fetch(`${API_URL}/api/update/${id}`, {
-            method: "POST", // Must use post because in PHP PUT/PATCH request with multipart/form-data will not populate $_FILES.
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            },
-            body: formData,
-            redirect: "follow"
-        });
-        
-        const json = await res.json();
+        const json = await api.editCatch(data, id);
 
         if (json.success) {
             helpers.showFlashMessage("Catch updated!", "success");

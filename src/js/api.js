@@ -56,6 +56,24 @@ export const api = function () {
         return await res.json();
     }
 
+    async function editCatch (data, id) {
+        let formData = new FormData();
+        for (const key in data) {
+            formData.append(key, data[key])
+        }
+
+        const res = await fetch(`${API_URL}/api/update/${id}`, {
+            method: "POST", // Must use post because in PHP PUT/PATCH request with multipart/form-data will not populate $_FILES.
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            body: formData,
+            redirect: "follow"
+        });
+
+        return await res.json();
+    }
+
     async function login(data) {
         const res = await fetch(`${API_URL}/api/login`, {
             method: "POST",
@@ -64,7 +82,7 @@ export const api = function () {
             },
             body: JSON.stringify(data)
         });
-        
+
         return await res.json();
     }
 
@@ -97,6 +115,7 @@ export const api = function () {
         getCatch,
         signup,
         postCatch,
+        editCatch,
         login,
         logout,
         remove
