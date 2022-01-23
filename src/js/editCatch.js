@@ -55,13 +55,13 @@ export const editCatch = function() {
         if (!state.getLoggedIn()) {
             content.innerHTML = `
                 <div class="content_inner">
-                    <h2>Add</h2>
+                    <h2>Edit</h2>
                     <div class="img_wrapper">
                         <img src="./images/atlantic_mackerel_2.jpg" >
                     </div>
                     <div class="info">
-                        <p>You have to log in to be able to add a catch.</p>
-                        <p>Sign in or create an account.</p>
+                        <p>You have to log in to be able to edit a catch.</p>
+                        <p><a class="signin_link">Sign in</a> or <a class="signup_link">create an account.</a></p>
                     </div>
                 </div>
                 `;
@@ -73,17 +73,17 @@ export const editCatch = function() {
         content.innerHTML = `
         <div class="content_inner">
             <h2>Edit</h2>
-            <form action="" id="add-form">
-                <input type="text" id="add_input_species" placeholder="Species" class="input" value="${catchData.species}">
-                <input type="number" min="0" id="add_input_length" placeholder="Length (cm)" class="input" value="${catchData.length}">
-                <input type="number" min="0" id="add_input_weight" placeholder="Weight (g)" class="input" value="${catchData.weight}">
-                <input type="date" id="add_input_date" class="input" value="${catchData.date}">
+            <form action="" id="edit-form">
+                <input type="text" id="edit_input_species" placeholder="Species" class="input" value="${catchData.species}">
+                <input type="number" min="0" id="edit_input_length" placeholder="Length (cm)" class="input" value="${catchData.length}">
+                <input type="number" min="0" id="edit_input_weight" placeholder="Weight (g)" class="input" value="${catchData.weight}">
+                <input type="date" id="edit_input_date" class="input" value="${catchData.date}">
                 <p>Click on the map to set location</p>
                 <div id="map"></div>
                 <img src="${API_URL}${catchData.imageurl}" alt="Catch image" id="preview_image" />
                 <label for="uploadImage" id="uploadImageLabel">Change image</label>
                 <input type="file" id="uploadImage">
-                <button id="add_catch" class="button">Save</button>
+                <button id="edit_catch" class="button">Save</button>
             </form>
         </div>
         `;
@@ -101,17 +101,17 @@ export const editCatch = function() {
             }
         });
 
-        const addButton = helpers.getId("add_catch");
+        const addButton = helpers.getId("edit_catch");
 
         showMap(catchData.location);
 
         helpers.addListener("click", addButton, async (e) => {
             e.preventDefault();
 
-            const species = helpers.getId("add_input_species").value;
-            const length = helpers.getId("add_input_length").value;
-            const weight = helpers.getId("add_input_weight").value;
-            const date = helpers.getId("add_input_date").value;
+            const species = helpers.getId("edit_input_species").value;
+            const length = helpers.getId("edit_input_length").value;
+            const weight = helpers.getId("edit_input_weight").value;
+            const date = helpers.getId("edit_input_date").value;
             const uploadImageEl = helpers.getId("uploadImage");
 
             const data = {
