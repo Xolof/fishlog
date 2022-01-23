@@ -68,8 +68,8 @@ export const add = function() {
             <h2>Add</h2>
             <form action="" id="add-form">
                 <input type="text" id="add_input_species" placeholder="Species" class="input">
-                <input type="number" id="add_input_length" placeholder="Length (cm)" class="input">
-                <input type="number" id="add_input_weight" placeholder="Weight (g)" class="input">
+                <input type="number" min="0" id="add_input_length" placeholder="Length (cm)" class="input">
+                <input type="number" min="0" id="add_input_weight" placeholder="Weight (g)" class="input">
                 <input type="date" id="add_input_date" class="input">
                 <p>Click on the map to set location</p>
                 <div id="map"></div>
@@ -88,6 +88,14 @@ export const add = function() {
             const previewImage = document.getElementById("preview_image");
             previewImage.style.display = "initial";
             previewImage.src = src;
+        });
+
+        helpers.addListener("keypress", window, (e) => {
+            if (e.target.type === "number") {
+                if (isNaN(e.key)) {
+                    e.preventDefault();
+                };
+            }
         });
 
         const addButton = helpers.getId("add_catch");
