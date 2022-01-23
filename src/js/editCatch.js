@@ -105,53 +105,43 @@ export const editCatch = function() {
 
         showMap(catchData.location);
 
-        helpers.addListener("click", addButton, (e) => {
+        helpers.addListener("click", addButton, async (e) => {
             e.preventDefault();
 
             const species = helpers.getId("add_input_species").value;
             const length = helpers.getId("add_input_length").value;
             const weight = helpers.getId("add_input_weight").value;
             const date = helpers.getId("add_input_date").value;
-            const uploadImage = helpers.getId("uploadImage").files[0];
+            const uploadImageEl = helpers.getId("uploadImage");
 
-            if (
-                species != ""
-                && length != ""
-                && weight != ""
-                && date != ""
-                && coordinates
-            ) {
-                postData (
-                    {
-                        "species": species,
-                        "length": length,
-                        "weight": weight,
-                        "date": date,
-                        "location": coordinates,
-                        "uploadImage": uploadImage
-                    },
-                    id
-                );
+            const data = {
+                "species": species,
+                "length": length,
+                "weight": weight,
+                "date": date
+            };
+
+            if (coordinates) {
+                data.location = coordinates
+            }
+
+            if (uploadImageEl.files.length) {
+                data.uploadImage = uploadImageEl.files[0];
+            }
+
+            const json = await api.editCatch(data, id);
+
+            if (json.success) {
+                helpers.showFlashMessage("Catch updated!", "success");
+                helpers.resetContent();
+                const splitLocation = data.location.split(",");
+                showMapView.init([splitLocation[0], splitLocation[1]], json.data.id);
+            } else if (json.error) {
+                helpers.showFlashMessage(json.error, "error");
             } else {
-                helpers.showFlashMessage("Fill out all fields!", "error");
+                helpers.showFlashMessage("The request failed.", "error");
             }
         })
-    }
-
-    async function postData (data, id) {
-        const json = await api.editCatch(data, id);
-
-        if (json.success) {
-            helpers.showFlashMessage("Catch updated!", "success");
-            helpers.resetContent();
-            const splitLocation = data.location.split(",");
-            showMapView.init([splitLocation[0], splitLocation[1]], id);
-        } else if (json.error) {
-            console.error(json.error);
-            helpers.showFlashMessage(json.error, "error");
-        } else {
-            helpers.showFlashMessage("The request failed.", "error");
-        }
     }
 
     return {
