@@ -146,12 +146,20 @@ img,
     #catch_list {
         tbody {
             tr:nth-child(odd) {
-                background-color: #b4bbff;
+                background-color: #bebebe;
                 color: #141414;
             }
             tr:nth-child(even) {
                 background-color: #f5f5f5;
                 color: #141414;
+            }
+
+            tr {
+                transition: 0.1s all ease;
+                &:hover {
+                    background-color: #2c2cff;
+                    color: #f5f5f5;
+                }
             }
         }
         th,
