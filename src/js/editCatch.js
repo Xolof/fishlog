@@ -1,5 +1,4 @@
 import { helpers } from "./helpers.js";
-import { state } from "./state.js";
 import { showMap as showMapView } from "./showMap.js";
 import { addUserPosition } from "./adduserposition.js";
 import { api } from "./api.js";
@@ -52,22 +51,6 @@ export const editCatch = function() {
     async function init(id) {
         const content = helpers.getId("content");
 
-        if (!state.getLoggedIn()) {
-            content.innerHTML = `
-                <div class="content_inner">
-                    <h2>Edit</h2>
-                    <div class="img_wrapper">
-                        <img src="./images/atlantic_mackerel_2.jpg" >
-                    </div>
-                    <div class="info">
-                        <p>You have to log in to be able to edit a catch.</p>
-                        <p><a class="signin_link">Sign in</a> or <a class="signup_link">create an account.</a></p>
-                    </div>
-                </div>
-                `;
-            return;
-        };
-
         const catchData = await getCatch(id);
 
         content.innerHTML = `
@@ -101,11 +84,11 @@ export const editCatch = function() {
             }
         });
 
-        const addButton = helpers.getId("edit_catch");
+        const editButton = helpers.getId("edit_catch");
 
         showMap(catchData.location);
 
-        helpers.addListener("click", addButton, async (e) => {
+        helpers.addListener("click", editButton, async (e) => {
             e.preventDefault();
 
             const species = helpers.getId("edit_input_species").value;
@@ -141,7 +124,7 @@ export const editCatch = function() {
             } else {
                 helpers.showFlashMessage("The request failed.", "error");
             }
-        })
+        });
     }
 
     return {
