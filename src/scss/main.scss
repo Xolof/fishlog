@@ -190,7 +190,6 @@ img,
 }
 
 #flashmessage {
-    text-align: center;
     padding: 0.4em 0.2em 0.2em;
     position: fixed;
     top: 0;
@@ -199,6 +198,7 @@ img,
     font-size: 1rem;
     z-index: 9999999;
     border: 1px solid #313131;
+    list-style: none;
 }
 
 .slide {
@@ -220,11 +220,13 @@ img,
 .success {
     background-color: #37d137;
     color: #000;
+    text-align: center;
 }
 
 .error {
     background-color: #ff1f1f;
     color: #000;
+    text-align: center;
 }
 
 .irs--round {

@@ -6,19 +6,6 @@ export const state = function () {
     let isLoggedIn = false;
     let userName = "";
 
-    async function verifyToken() {
-        const url = `${API_URL}/api/get_user?token=${localStorage.getItem("token")}`;
-        const res = await fetch(url, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        const json = await res.json();
-        return json.user ?? false;
-    }
-
     function getLoggedIn() {
         return isLoggedIn;
     }
@@ -39,7 +26,6 @@ export const state = function () {
         getLoggedIn,
         setLoggedIn,
         setUserName,
-        getUserName,
-        verifyToken
+        getUserName
     }
 }()

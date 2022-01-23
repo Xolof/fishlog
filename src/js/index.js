@@ -9,10 +9,20 @@ import { show } from "./show.js";
 import { showMap } from "./showMap.js";
 import { login } from "./login.js";
 import { state } from './state.js';
+import { api } from './api.js';
 
 const main = async function() {
 
-    const user = await state.verifyToken();
+    const user = await api.verifyToken();
+
+    if (user.error) {
+        const errorPara = document.createElement("p");
+        errorPara.classList.add("error");
+        errorPara.textContent = "Could not connect to API.";
+        helpers.getId("main").appendChild(errorPara);
+        return;
+    }
+
     if (user) {
         const userInfo = document.createElement("p");
         userInfo.setAttribute("id", "userInfo");

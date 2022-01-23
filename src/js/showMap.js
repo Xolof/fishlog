@@ -29,6 +29,10 @@ export const showMap = function() {
         clearListeners();
         clearInterval(updatePositionInterval);
         data = await api.getCatches();
+        if (data.error) {
+            helpers.showFlashMessage(data.error, "error")
+            return;
+        }
         render(location, id);
     }
 

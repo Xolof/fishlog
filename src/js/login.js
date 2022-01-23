@@ -67,7 +67,7 @@ export const login = function() {
 
         if (json.success) {
             localStorage.setItem("token", json.token);
-            const user = await state.verifyToken();
+            const user = await api.verifyToken();
             state.setLoggedIn(true);
             state.setUserName(user.name);
             const userInfo = document.createElement("p");
