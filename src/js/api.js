@@ -87,11 +87,10 @@ export const api = function () {
                 body: formData,
                 redirect: "follow"
             });
+            return await res.json();
         } catch (err) {
             return { error: "Request failed" }
         }
-
-        return await res.json();
     }
 
     async function verifyToken() {
