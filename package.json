@@ -9,7 +9,8 @@
     "css": "sass ./src/scss/main.scss src/css/styles.css",
     "webpack": "webpack --config webpack.config.js",
     "dev": "nodemon --ext js,html,css,json index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+	"cypress:open": "cypress open"
   },
   "author": "xolof",
   "license": "ISC",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "css-loader": "^6.5.1",
+    "cypress": "^9.3.1",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.4",
