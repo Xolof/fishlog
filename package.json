@@ -10,11 +10,12 @@
     "webpack": "webpack --config webpack.config.js",
     "dev": "nodemon --ext js,html,css,json index.js",
     "start": "node index.js",
-	  "cypress:open": "cypress open"
+    "cypress:open": "cypress open"
   },
   "author": "xolof",
   "license": "ISC",
   "dependencies": {
+    "cypress-file-upload": "^5.0.8",
     "express": "^4.17.1",
     "ion-rangeslider": "^2.3.1",
     "jquery": "^3.6.0"
