@@ -1,14 +1,13 @@
 import { helpers } from "./helpers.js";
-import { state } from './state.js';
-import { editCatch } from './editCatch.js';
-import { deleteCatch } from './deleteCatch.js';
+import { state } from "./state.js";
+import { editCatch } from "./editCatch.js";
+import { deleteCatch } from "./deleteCatch.js";
 import { addUserPosition } from "./adduserposition.js";
 import { api } from "./api.js";
 
 const API_URL = api.getURL();
 
-export const showMap = function() {
-
+export const showMap = (function () {
     let updatePositionInterval;
 
     let data = {};
@@ -17,20 +16,20 @@ export const showMap = function() {
     let map;
     const markers = new L.FeatureGroup();
 
-    var handlers = [];
+    let handlers = [];
 
-    var filterString = "";
-    var minLength = 0;
-    var maxLength = "more";
-    var minWeight = 0;
-    var maxWeight = "more";
-    
+    let filterString = "";
+    let minLength = 0;
+    let maxLength = "more";
+    let minWeight = 0;
+    let maxWeight = "more";
+
     async function init (location, id) {
         clearListeners();
         clearInterval(updatePositionInterval);
         data = await api.getCatches();
         if (data.error) {
-            helpers.showFlashMessage(data.error, "error")
+            helpers.showFlashMessage(data.error, "error");
             return;
         }
         render(location, id);
@@ -61,25 +60,25 @@ export const showMap = function() {
         lengthLabel.setAttribute("for", "lengthSlider");
         section.appendChild(lengthLabel);
 
-        var custom_values = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 125, 150, 175, 200, "more"];
-        var my_from = custom_values.indexOf(0);
-        var my_to = custom_values.indexOf("more");
+        let customValues = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 125, 150, 175, 200, "more"];
+        let myFrom = customValues.indexOf(0);
+        let myTo = customValues.indexOf("more");
 
         $("#lenghtSlider").ionRangeSlider({
             skin: "round",
             type: "double",
             grid: true,
-            from: my_from,
-            to: my_to,
+            from: myFrom,
+            to: myTo,
             prefix: "cm",
-            values: custom_values,
+            values: customValues,
             onChange: (data) => {
                 minLength = data.from_value;
                 maxLength = data.to_value;
                 filter();
             }
         });
-        
+
         const weightSlider = document.createElement("input");
         weightSlider.setAttribute("type", "text");
         weightSlider.setAttribute("id", "weightSlider");
@@ -90,18 +89,18 @@ export const showMap = function() {
         lengthLabel.setAttribute("for", "weightSlider");
         section.appendChild(weightLabel);
 
-        var custom_values = [0, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 7500, 10000, "more"];
-        var my_from = custom_values.indexOf(0);
-        var my_to = custom_values.indexOf("more");
+        customValues = [0, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 7500, 10000, "more"];
+        myFrom = customValues.indexOf(0);
+        myTo = customValues.indexOf("more");
 
         $("#weightSlider").ionRangeSlider({
             skin: "round",
             type: "double",
             grid: true,
-            from: my_from,
-            to: my_to,
+            from: myFrom,
+            to: myTo,
             prefix: "g",
-            values: custom_values,
+            values: customValues,
             onChange: (data) => {
                 minWeight = data.from_value;
                 maxWeight = data.to_value;
@@ -123,7 +122,7 @@ export const showMap = function() {
     }
 
     function showMap (location, id) {
-        let mapDiv = document.createElement("div");
+        const mapDiv = document.createElement("div");
         mapDiv.setAttribute("id", "map");
         mapDiv.setAttribute("class", "full_height");
         inner.appendChild(mapDiv);
@@ -132,17 +131,17 @@ export const showMap = function() {
             location = addUserPosition.getUserPosition();
         }
 
-        if(!location) {
-            map = L.map('map').setView([56.0445,12.5316], 5);    
+        if (!location) {
+            map = L.map("map").setView([56.0445, 12.5316], 5);
         } else {
             const lat = location[0];
             const lon = location[1];
-    
-            map = L.map('map').setView([lat, lon], 10);    
+
+            map = L.map("map").setView([lat, lon], 10);
         }
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors"
         }).addTo(map);
 
         markers.addTo(map);
@@ -159,16 +158,15 @@ export const showMap = function() {
     }
 
     function addMarkers (newData, openId) {
-
         newData.forEach(c => {
             const lat = c.location.split(",")[0];
             const lon = c.location.split(",")[1];
-            const catchId = `catch_${c.id}`
+            const catchId = `catch_${c.id}`;
             const editButtons = c.username === state.getUserName()
                 ? `<div class="editButtons"><button id='edit_${catchId}'>Edit</button><button id='delete_${catchId}'>Delete</button></div>`
                 : "";
 
-            const popupContent =`
+            const popupContent = `
                 <section>
                     <h2>${c.species}</h2>
                     <img
@@ -200,21 +198,21 @@ export const showMap = function() {
             if (targetArr[0] === "edit") {
                 editCatch.init(targetArr[2]);
             }
-        }
+        };
 
         handlers.push(deleteEditHandler);
 
         document.addEventListener("click", deleteEditHandler);
     }
 
-    function clearListeners() {
+    function clearListeners () {
         handlers.forEach(handler => {
             document.removeEventListener("click", handler);
         });
         handlers = [];
     }
 
-    function render(location, id) {
+    function render (location, id) {
         inner = document.createElement("div");
         inner.classList.add("content_inner");
         content.appendChild(inner);
@@ -227,5 +225,5 @@ export const showMap = function() {
 
     return {
         init
-    }
-}()
+    };
+}());

@@ -2,11 +2,8 @@ import { helpers } from "./helpers.js";
 import { showMap as showMapView } from "./showMap.js";
 import { api } from "./api.js";
 
-const API_URL = api.getURL();
-
-export const deleteCatch = function() {
+export const deleteCatch = (function () {
     async function remove (id) {
-       
         const json = await api.remove(id);
 
         if (json.success) {
@@ -22,5 +19,5 @@ export const deleteCatch = function() {
 
     return {
         remove
-    }
-}()
+    };
+}());

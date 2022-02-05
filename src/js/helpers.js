@@ -1,25 +1,25 @@
-export const helpers = function() {
+export const helpers = (function () {
     let flashZ = 10000;
 
-    function getId(id) {
+    function getId (id) {
         return document.getElementById(id);
     }
-    
-    function addListener(eventType, element, func) {
-        element.addEventListener(eventType, func)
+
+    function addListener (eventType, element, func) {
+        element.addEventListener(eventType, func);
     }
 
-    function checkMatch(query, string) {
+    function checkMatch (query, string) {
         if (string.slice(0, query.length) === query) {
             return true;
         }
     }
 
-    function resetContent() {
+    function resetContent () {
         getId("content").innerHTML = "";
     }
 
-    function showFlashMessage(message, css) {
+    function showFlashMessage (message, css) {
         const app = getId("app");
         const flashMessage = document.createElement("ul");
         flashMessage.setAttribute("id", "flashmessage");
@@ -52,5 +52,5 @@ export const helpers = function() {
         checkMatch,
         resetContent,
         showFlashMessage
-    }
-}()
+    };
+}());

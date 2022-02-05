@@ -1,36 +1,35 @@
-export const api = function () {
-    
+export const api = (function () {
     const API_URL = "http://localhost:8000";
 
-    function getURL() {
+    function getURL () {
         return API_URL;
     }
 
     async function getCatches () {
         try {
-            let res = await fetch(`${API_URL}/api/public_fishcatch`);
+            const res = await fetch(`${API_URL}/api/public_fishcatch`);
             return await res.json();
         } catch (err) {
-            return { error: "Request failed" }
+            return { error: "Request failed" };
         }
     }
 
     async function getCatch (id) {
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
-        
-        var requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow'
+
+        const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"
         };
 
         try {
-            const res = await fetch(`${API_URL}/api/fishcatch/${id}`, requestOptions)
+            const res = await fetch(`${API_URL}/api/fishcatch/${id}`, requestOptions);
             const json = await res.json();
             return json;
         } catch (err) {
-            return { error: "Request failed" }
+            return { error: "Request failed" };
         }
     }
 
@@ -39,124 +38,122 @@ export const api = function () {
             const res = await fetch(`${API_URL}/api/register`, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
             });
-
             return await res.json();
-        
         } catch (err) {
-            return { error: "Request failed" }
+            return { error: "Request failed" };
         }
     }
 
     async function postCatch (data) {
-        let formData = new FormData();
+        const formData = new FormData();
         for (const key in data) {
-            formData.append(key, data[key])
+            formData.append(key, data[key]);
         }
 
         try {
             const res = await fetch(`${API_URL}/api/create`, {
                 method: "POST",
                 headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("token")
+                    Authorization: "Bearer " + localStorage.getItem("token")
                 },
                 body: formData
             });
 
             return await res.json();
         } catch (err) {
-            return { error: "Request failed" }
+            return { error: "Request failed" };
         }
     }
 
     async function editCatch (data, id) {
-        let formData = new FormData();
+        const formData = new FormData();
         for (const key in data) {
-            formData.append(key, data[key])
+            formData.append(key, data[key]);
         }
 
         try {
             const res = await fetch(`${API_URL}/api/update/${id}`, {
                 method: "POST", // Must use post because in PHP PUT/PATCH request with multipart/form-data will not populate $_FILES.
                 headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("token")
+                    Authorization: "Bearer " + localStorage.getItem("token")
                 },
                 body: formData,
                 redirect: "follow"
             });
             return await res.json();
         } catch (err) {
-            return { error: "Request failed" }
+            return { error: "Request failed" };
         }
     }
 
-    async function verifyToken() {
+    async function verifyToken () {
         try {
             const url = `${API_URL}/api/get_user?token=${localStorage.getItem("token")}`;
             const res = await fetch(url, {
                 method: "GET",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 }
             });
 
             const json = await res.json();
             return json.user ?? false;
         } catch (err) {
-            return { error: "Request failed" }
+            return { error: "Request failed" };
         }
     }
 
-    async function login(data) {
+    async function login (data) {
         try {
             const res = await fetch(`${API_URL}/api/login`, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
             });
 
             return await res.json();
         } catch (err) {
-            return { error: "Request failed" }
+            return { error: "Request failed" };
         }
     }
 
-    async function logout() {
+    async function logout () {
         try {
-            const url = `${API_URL}/api/logout?token=${localStorage.getItem("token")}`
+            const url = `${API_URL}/api/logout?token=${localStorage.getItem("token")}`;
             const res = await fetch(url, {
                 method: "GET",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 }
             });
 
             return await res.json();
         } catch (err) {
-            return { error: "Request failed" }
+            return { error: "Request failed" };
         }
     }
 
-    async function remove(id) {
+    async function remove (id) {
         try {
             const res = await fetch(`${API_URL}/api/delete/${id}`, {
                 method: "DELETE",
                 headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("token")
+                    Authorization: "Bearer " + localStorage.getItem("token")
                 }
             });
 
             return await res.json();
         } catch (err) {
-            return { error: "Request failed" }
+            return { error: "Request failed" };
         }
     }
-    
+
     return {
         getURL,
         getCatches,
@@ -168,5 +165,5 @@ export const api = function () {
         logout,
         verifyToken,
         remove
-    }
-}()
+    };
+}());

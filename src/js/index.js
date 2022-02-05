@@ -8,11 +8,10 @@ import { add } from "./add.js";
 import { show } from "./show.js";
 import { showMap } from "./showMap.js";
 import { login } from "./login.js";
-import { state } from './state.js';
-import { api } from './api.js';
+import { state } from "./state.js";
+import { api } from "./api.js";
 
-const main = async function() {
-
+const main = (async function () {
     const user = await api.verifyToken();
 
     if (user.error) {
@@ -37,8 +36,8 @@ const main = async function() {
     <a id="nav_add" title="Add catch"><img src="./images/add.svg"></a>
     <a id="nav_show" title="Show catches in list"><img src="./images/list.svg"></a>
     <a id="nav_showMap" title="Show catches on map"><img src="./images/map.svg"></a>
-    <a id="nav_login" title="${ state.getLoggedIn() ? "Logout" : "Login" }">
-        <img src="./images/${ state.getLoggedIn() ? "logout" : "login" }.svg">
+    <a id="nav_login" title="${state.getLoggedIn() ? "Logout" : "Login"}">
+        <img src="./images/${state.getLoggedIn() ? "logout" : "login"}.svg">
     </a>`;
 
     showMap.init();
@@ -67,4 +66,4 @@ const main = async function() {
             showMap.init();
         }
     });
-}();
+}());

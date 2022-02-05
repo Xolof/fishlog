@@ -4,18 +4,17 @@ import { api } from "./api.js";
 const addListener = helpers.addListener;
 const getId = helpers.getId;
 
-export const show = function() {
-
+export const show = (function () {
     let data = {};
     let sortAscDesc = false;
-    
+
     async function init () {
         data = await api.getCatches();
         render();
     }
 
-    function render() {
-        const content = getId("content")
+    function render () {
+        const content = getId("content");
         content.innerHTML = `
             <div class="content_inner" id="content_inner">
                 <h2>Catches</h2>
@@ -45,7 +44,7 @@ export const show = function() {
         const list = getId("catch_list");
 
         let tableHtml = "";
-        tableHtml += `<tbody id="catch_list_body">`;
+        tableHtml += "<tbody id=\"catch_list_body\">";
 
         data.forEach(item => {
             tableHtml += `
@@ -62,24 +61,24 @@ export const show = function() {
             `;
         });
 
-        tableHtml += `</tbody>`;
+        tableHtml += "</tbody>";
 
         list.innerHTML += tableHtml;
 
         addListener("click", getId("date_header"), () => {
-            let listBody = getId("catch_list_body");
+            const listBody = getId("catch_list_body");
             listBody.parentNode.removeChild(listBody);
             sort("date");
         });
 
         addListener("click", getId("length_header"), () => {
-            let listBody = getId("catch_list_body");
+            const listBody = getId("catch_list_body");
             listBody.parentNode.removeChild(listBody);
             sort("length");
         });
 
         addListener("click", getId("weight_header"), () => {
-            let listBody = getId("catch_list_body");
+            const listBody = getId("catch_list_body");
             listBody.parentNode.removeChild(listBody);
             sort("weight");
         });
@@ -89,9 +88,9 @@ export const show = function() {
         if (!sortAscDesc || sortAscDesc === "desc") {
             data = data.sort((a, b) => {
                 if (value === "date") {
-                    return  new Date(a[value]) - new Date(b[value])
+                    return new Date(a[value]) - new Date(b[value]);
                 }
-                return a[value] - b[value]
+                return a[value] - b[value];
             });
             sortAscDesc = "asc";
             render();
@@ -101,17 +100,16 @@ export const show = function() {
         if (sortAscDesc === "asc") {
             data = data.sort((a, b) => {
                 if (value === "date") {
-                    return  new Date(b[value]) - new Date(a[value])
+                    return new Date(b[value]) - new Date(a[value]);
                 }
-                return b[value] - a[value]
+                return b[value] - a[value];
             });
             sortAscDesc = "desc";
             render();
-            return;
         }
     }
 
     return {
         init
-    }
-}()
+    };
+}());

@@ -6,22 +6,22 @@ import { api } from "./api.js";
 
 const API_URL = api.getURL();
 
-export const editCatch = function() {
+export const editCatch = (function () {
     let coordinates = false;
     let updatePositionInterval;
 
     async function getCatch (id) {
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
-        
-        var requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow'
+
+        const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"
         };
-        
+
         try {
-            const res = await fetch(`${API_URL}/api/fishcatch/${id}`, requestOptions)
+            const res = await fetch(`${API_URL}/api/fishcatch/${id}`, requestOptions);
             const json = await res.json();
             return json;
         } catch (e) {
@@ -38,14 +38,14 @@ export const editCatch = function() {
     function showMap (location) {
         clearInterval(updatePositionInterval);
 
-        var lat = location.split(",")[0];
-        var lng = location.split(",")[1];
+        let lat = location.split(",")[0];
+        let lng = location.split(",")[1];
         coordinates = lat + "," + lng;
 
-        var map = L.map('map').setView([lat, lng], 10);
+        const map = L.map("map").setView([lat, lng], 10);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors"
         }).addTo(map);
 
         const layerGroup = L.layerGroup().addTo(map);
@@ -55,7 +55,7 @@ export const editCatch = function() {
         map.addEventListener("click", (e) => {
             coordinates = e.latlng.lat + "," + e.latlng.lng;
             lat = e.latlng.lat;
-            lng = e.latlng.lng
+            lng = e.latlng.lng;
 
             layerGroup.clearLayers();
 
@@ -65,7 +65,7 @@ export const editCatch = function() {
         updatePositionInterval = addUserPosition.add(L, map);
     }
 
-    async function init(id) {
+    async function init (id) {
         const content = helpers.getId("content");
 
         if (!state.getLoggedIn()) {
@@ -109,7 +109,6 @@ export const editCatch = function() {
             document.getElementById("preview_image").src = src;
         });
 
-
         helpers.addListener("keypress", window, (e) => {
             if (e.target.type === "number") {
                 if (isNaN(e.key)) {
@@ -132,22 +131,22 @@ export const editCatch = function() {
             const uploadImageEl = helpers.getId("uploadImage");
 
             const data = {
-                "species": species,
-                "length": length,
-                "weight": weight,
-                "date": date
+                species: species,
+                length: length,
+                weight: weight,
+                date: date
             };
 
             if (coordinates) {
-                data.location = coordinates
+                data.location = coordinates;
             }
 
             if (uploadImageEl.files.length) {
                 data.uploadImage = uploadImageEl.files[0];
             }
 
-            postData (data, id);
-        })
+            postData(data, id);
+        });
     }
 
     async function postData (data, id) {
@@ -168,5 +167,5 @@ export const editCatch = function() {
 
     return {
         init
-    }
-}()
+    };
+}());

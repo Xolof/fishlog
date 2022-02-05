@@ -1,24 +1,20 @@
-import { api } from "./api.js";
-
-export const state = function () {
-
-    const API_URL = api.getURL();
+export const state = (function () {
     let isLoggedIn = false;
     let userName = "";
 
-    function getLoggedIn() {
+    function getLoggedIn () {
         return isLoggedIn;
     }
 
-    function setLoggedIn(value) {
+    function setLoggedIn (value) {
         isLoggedIn = value;
     }
 
-    function setUserName(value) {
+    function setUserName (value) {
         userName = value;
     }
 
-    function getUserName() {
+    function getUserName () {
         return userName;
     }
 
@@ -27,5 +23,5 @@ export const state = function () {
         setLoggedIn,
         setUserName,
         getUserName
-    }
-}()
+    };
+}());

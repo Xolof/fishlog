@@ -1,13 +1,11 @@
 import { helpers } from "./helpers.js";
-import { state } from './state.js';
+import { state } from "./state.js";
 import { showMap } from "./showMap.js";
 import { signup } from "./signup.js";
 import { api } from "./api.js";
 
-const API_URL = api.getURL();
-
-export const login = function() {
-    function init() {
+export const login = (function () {
+    function init () {
         helpers.getId("content").innerHTML = `
         <div class="content_inner">
             <h2>Sign in</h2>
@@ -25,13 +23,13 @@ export const login = function() {
 
             const email = helpers.getId("email").value;
             const password = helpers.getId("password").value;
-            
+
             if (email && password) {
                 const data = {
                     email,
                     password
                 };
-    
+
                 login(data);
             } else {
                 helpers.showFlashMessage("Fill out all fields.", "error");
@@ -43,7 +41,7 @@ export const login = function() {
         });
     }
 
-    async function logout() {
+    async function logout () {
         const json = await api.logout();
 
         if (json.success) {
@@ -56,13 +54,12 @@ export const login = function() {
             const loginButton = helpers.getId("nav_login");
             loginButton.innerHTML = "<img src='./images/login.svg'>";
             loginButton.setAttribute("title", "Login");
-            return;
         } else {
             helpers.showFlashMessage("Logout failed.", "error");
         }
     }
 
-    async function login(data) { 
+    async function login (data) {
         const json = await api.login(data);
 
         if (json.success) {
@@ -72,9 +69,9 @@ export const login = function() {
             state.setUserName(user.name);
             const userInfo = document.createElement("p");
             userInfo.setAttribute("id", "userInfo");
-            userInfo.textContent = `Logged in as ${user.name}`
+            userInfo.textContent = `Logged in as ${user.name}`;
             document.getElementById("main").prepend(userInfo);
-            let loginButton = helpers.getId("nav_login");
+            const loginButton = helpers.getId("nav_login");
             loginButton.innerHTML = "<img src='./images/logout.svg'>";
             loginButton.setAttribute("title", "Logout");
             helpers.showFlashMessage("You logged in!", "success");
@@ -88,5 +85,5 @@ export const login = function() {
     return {
         init,
         logout
-    }
-}();
+    };
+}());

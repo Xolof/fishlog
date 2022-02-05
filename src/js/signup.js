@@ -1,8 +1,9 @@
 import { helpers } from "./helpers.js";
 import { api } from "./api.js";
+import { login } from "./login.js";
 
-export const signup = function() {
-    function init() {
+export const signup = (function () {
+    function init () {
         helpers.getId("content").innerHTML = `
         <div class="content_inner">
             <h2>Sign up</h2>
@@ -21,14 +22,14 @@ export const signup = function() {
             const name = helpers.getId("input-field-1").value;
             const email = helpers.getId("input-field-2").value;
             const password = helpers.getId("input-field-3").value;
-            
+
             if (name && email && password) {
                 const data = {
                     name,
                     email,
                     password
                 };
-    
+
                 const json = api.signup(data);
 
                 if (json.success) {
@@ -46,5 +47,5 @@ export const signup = function() {
 
     return {
         init
-    }
-}();
+    };
+}());

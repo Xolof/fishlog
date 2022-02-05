@@ -1,6 +1,5 @@
-export const location = function () {
-
-    var location = null;
+export const location = (function () {
+    let location = null;
 
     try {
         const interval = setInterval(setLocation(), 2000);
@@ -8,11 +7,11 @@ export const location = function () {
         console.error(err);
     }
 
-    function setLocation() {
+    function setLocation () {
         if (window.navigator.geolocation) {
             window.navigator.geolocation.watchPosition(
                 (position) => {
-                    location = position
+                    location = position;
                 }
             );
         } else {
@@ -20,11 +19,11 @@ export const location = function () {
         }
     }
 
-    function getLocation() {
+    function getLocation () {
         return location;
     }
 
     return {
         getLocation
-    }
-}()
+    };
+}());

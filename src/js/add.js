@@ -6,19 +6,17 @@ import { login } from "./login.js";
 import { signup } from "./signup.js";
 import { api } from "./api.js";
 
-const API_URL = api.getURL();
-
-export const add = function() {
+export const add = (function () {
     let coordinates = false;
     let updatePositionInterval;
 
     function showMap () {
         clearInterval(updatePositionInterval);
 
-        var map = L.map('map').setView([56.04, 12.65], 10);
+        const map = L.map("map").setView([56.04, 12.65], 10);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
         }).addTo(map);
 
         const layerGroup = L.layerGroup().addTo(map);
@@ -26,7 +24,7 @@ export const add = function() {
         map.addEventListener("click", (e) => {
             coordinates = e.latlng.lat + "," + e.latlng.lng;
             const lat = e.latlng.lat;
-            const lng = e.latlng.lng
+            const lng = e.latlng.lng;
             layerGroup.clearLayers();
             L.marker([lat, lng]).addTo(layerGroup);
         });
@@ -34,7 +32,7 @@ export const add = function() {
         updatePositionInterval = addUserPosition.add(L, map);
     }
 
-    function init() {
+    function init () {
         const content = helpers.getId("content");
 
         if (!state.getLoggedIn()) {
@@ -110,14 +108,14 @@ export const add = function() {
             const uploadImageEl = helpers.getId("uploadImage");
 
             const data = {
-                "species": species,
-                "length": length,
-                "weight": weight,
-                "date": date
+                species,
+                length,
+                weight,
+                date
             };
 
             if (coordinates) {
-                data.location = coordinates
+                data.location = coordinates;
             }
 
             if (uploadImageEl.files.length) {
@@ -141,5 +139,5 @@ export const add = function() {
 
     return {
         init
-    }
-}()
+    };
+}());

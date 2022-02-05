@@ -1,14 +1,13 @@
 import { location } from "./location.js";
 
-export const addUserPosition = function () {
-    
+export const addUserPosition = (function () {
     let userPosition = null;
 
-    function getUserPosition() {
+    function getUserPosition () {
         return userPosition;
     }
 
-    function add(L, map) {
+    function add (L, map) {
         let position = null;
         const userPositionMarker = new L.FeatureGroup();
 
@@ -22,12 +21,11 @@ export const addUserPosition = function () {
                     userPosition = [lat, lon];
 
                     userPositionMarker.addTo(map);
-                    var userIcon = L.icon({
-                        iconUrl: './images/user.png',
-                        iconSize:     [25, 25],
-                        // iconAnchor:   [25, 25],
+                    const userIcon = L.icon({
+                        iconUrl: "./images/user.png",
+                        iconSize: [25, 25]
                     });
-                    const marker = L.marker([lat, lon], {icon: userIcon});
+                    const marker = L.marker([lat, lon], { icon: userIcon });
 
                     userPositionMarker.addLayer(marker);
                 } catch (err) {
@@ -40,5 +38,5 @@ export const addUserPosition = function () {
     return {
         add,
         getUserPosition
-    }
-}()
+    };
+}());
