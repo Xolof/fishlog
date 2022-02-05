@@ -10,7 +10,7 @@
     "webpack": "webpack --config webpack.config.js",
     "dev": "nodemon --ext js,html,css,json index.js",
     "start": "node index.js",
-	"cypress:open": "cypress open"
+	  "cypress:open": "cypress open"
   },
   "author": "xolof",
   "license": "ISC",
