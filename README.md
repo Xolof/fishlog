@@ -4,6 +4,9 @@ A frontend for the FishLog app. Built with Javascript, Express JS, Sass and Ion 
 ## Install dependencies
 `npm install`
 
+## Run linter
+`npx eslint src/js`
+
 ## Build CSS
 `npm run css`
 
