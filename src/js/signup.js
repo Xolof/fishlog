@@ -16,7 +16,7 @@ export const signup = (function () {
         </div>
         `;
 
-        helpers.addListener("click", helpers.getId("signup"), (e) => {
+        helpers.addListener("click", helpers.getId("signup"), async (e) => {
             e.preventDefault();
 
             const name = helpers.getId("input-field-1").value;
@@ -30,14 +30,16 @@ export const signup = (function () {
                     password
                 };
 
-                const json = api.signup(data);
+                const json = await api.signup(data);
 
                 if (json.success) {
                     helpers.showFlashMessage("You have signed up!", "success");
                     helpers.resetContent();
                     login.init();
                 } else {
-                    helpers.showFlashMessage("Sign up failed.", "error");
+                    for (let key in json.error) {
+                        helpers.showFlashMessage(json.error[key], "error");
+                    }
                 }
             } else {
                 helpers.showFlashMessage("Fill out all fields.", "error");
